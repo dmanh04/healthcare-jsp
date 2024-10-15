@@ -12,7 +12,7 @@
                 <li class="item-contact"><a href="#">Tuyển dụng</a></li>
                 <li class="item-contact"><a href="#">Liên hệ</a></li>
                 <li class="item-contact"><a href="<c:url value="/login"/>">Đăng nhập</a></li>
-                <li class="item-contact"><a href="#">Đăng kí</a></li>
+                <li class="item-contact"><a href="<c:url value="/register"/>">Đăng kí</a></li>
             </ul>
         </div>
     </div>

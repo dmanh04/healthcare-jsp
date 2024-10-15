@@ -292,7 +292,7 @@
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc; /* Light border for inputs */
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 16px;
 }
 

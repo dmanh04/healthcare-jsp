@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/views/web/home.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/assets/css/style.css</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/common/taglib.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/common/login.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/controller/auth/AuthenticateController.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/common/web/header.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/models/Medicines.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/models/MedicalRecords.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/models/PrescriptionDetails.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/models/Inventory.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/models/Prescriptions.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/models/Appointments.java</file>
         </group>
     </open-files>
 </project-private>
