@@ -31,7 +31,7 @@
 
                 if (password !== retypePassword) {
                     errorMessage.textContent = "Passwords do not match!";
-                    return false; 
+                    return false;
                 }
 
                 errorMessage.textContent = "";
@@ -55,16 +55,16 @@
                     <!-- Form with onsubmit validation -->
                     <form name="registerForm" action="<c:url value='register'/>" method="post" class="form" onsubmit="return validateForm();">
                         <div class="form-item">
-                            <input type="text" name="name" class="form-control" placeholder="Nhập họ và tên">
+                            <input type="text" name="name" class="form-control" placeholder="Nhập họ và tên" value="${param.name != null ? param.name : ''}">
                         </div>
                         <div class="form-item">
-                            <input type="text" name="username" class="form-control" placeholder="Email/Tên đăng nhập">
+                            <input type="text" name="username" class="form-control" placeholder="Email/Tên đăng nhập" value="${param.username != null ? param.username : ''}">
                         </div>
                         <div class="form-item">
-                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu" value="${param.password != null ? param.password : ''}">
                         </div>
                         <div class="form-item">
-                            <input type="password" name="retypePassword" class="form-control" placeholder="Xác nhận mật khẩu">
+                            <input type="password" name="retypePassword" class="form-control" placeholder="Xác nhận mật khẩu" value="${param.retypePassword != null ? param.retypePassword : ''}">
                         </div>
                         <div class="button">
                             <button type="submit" class="btn-small">Đăng kí</button>

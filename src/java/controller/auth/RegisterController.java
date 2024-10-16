@@ -18,29 +18,38 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.lang.System.Logger;
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.Date;
 import models.Roles;
 import models.User;
 
-
-
 @WebServlet(name = "RegisterController", urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
-    
+
     private final IUserDAO userDAO;
     private final IUserRoleDAO userRoleDAO;
     private final IRoleDAO roleDAO;
+
     public RegisterController() {
         this.userDAO = new UserDAOImpl();
         this.userRoleDAO = new UserRoleDAOImpl();
         this.roleDAO = new RoleDAOImpl();
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String currentUser = (String) session.getAttribute(SystemConstant.USER_CURRENT);
+        if (currentUser != null) {
+            String currentRole = (String) session.getAttribute(SystemConstant.ROLE_CURRENT);
+            if (!currentRole.equals(SystemConstant.ROLE_USER)) {
+                response.sendRedirect("admin");
+            } else {
+                response.sendRedirect("home");
+            }
+            return;
+        }
         RequestDispatcher req = request.getRequestDispatcher("webapp/views/web/register.jsp");
         req.forward(request, response);
     }
@@ -53,7 +62,7 @@ public class RegisterController extends HttpServlet {
         String confirmPassword = request.getParameter("retypePassword");
         String name = request.getParameter("name");
         String[] arr = name.split("\\s+");
-        if(userDAO.existsByUsername(username)){
+        if (userDAO.existsByUsername(username)) {
             request.setAttribute("errorMessage", "Username already exists.");
             request.getRequestDispatcher("webapp/views/web/register.jsp").forward(request, response);
             return;
@@ -66,8 +75,8 @@ public class RegisterController extends HttpServlet {
                 .isActive(1)
                 .email(username)
                 .dob(java.sql.Date.valueOf(LocalDate.now()))
-                .build(); 
-        Roles roleUserDefault = roleDAO.findUserByRoleName(SystemConstant.ROLE_USER);
+                .build();
+        Roles roleUserDefault = roleDAO.findUserByRoleName(SystemConstant.ROLE_ADMIN);
         if (password.equals(confirmPassword)) {
             userDAO.add(user);
             User userAdd = userDAO.findByUsername(user.getUsername());
