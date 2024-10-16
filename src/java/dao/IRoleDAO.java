@@ -17,5 +17,7 @@ public interface IRoleDAO {
     
     List<Roles> getAllRole();
     
+    Roles findRoleByUserId(int userId);
+    
     Map<Integer, String> getRoleIdAndName();
 }

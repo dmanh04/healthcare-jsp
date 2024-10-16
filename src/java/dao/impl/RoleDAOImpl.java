@@ -92,4 +92,26 @@ public class RoleDAOImpl extends DBContext implements IRoleDAO {
         return role;
     }
 
+    @Override
+    public Roles findRoleByUserId(int userId) {
+        String query = "SELECT r.role_id, r.role_name "
+                + "FROM roles r "
+                + "JOIN user_roles ur ON r.role_id = ur.role_id "
+                + "WHERE ur.user_id = ?";
+        System.out.println(query);
+        Roles role = null;
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    role = new Roles();
+                    role.setId(rs.getInt("role_id"));
+                    role.setRoleName(rs.getString("role_name"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoleDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return role;
+    }
 }

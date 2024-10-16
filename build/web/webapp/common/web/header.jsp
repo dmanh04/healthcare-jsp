@@ -11,8 +11,25 @@
                 <li class="item-contact"><a href="#">Hỗ trợ</a></li>
                 <li class="item-contact"><a href="#">Tuyển dụng</a></li>
                 <li class="item-contact"><a href="#">Liên hệ</a></li>
-                <li class="item-contact"><a href="<c:url value="/login"/>">Đăng nhập</a></li>
-                <li class="item-contact"><a href="<c:url value="/register"/>">Đăng kí</a></li>
+                <c:choose>
+                        <c:when test="${not empty sessionScope.USER_CURRENT}">
+                        <li class="item-contact">
+                            <a href="#">Xin chào, ${sessionScope.USER_CURRENT}</a>
+                        </li>
+                        <li class="item-contact">
+                            <a href="<c:url value='/logout'/>">Đăng xuất</a>
+                        </li>
+                    </c:when>
+
+                    <c:otherwise>
+                        <li class="item-contact">
+                            <a href="<c:url value='/login'/>">Đăng nhập</a>
+                        </li>
+                        <li class="item-contact">
+                            <a href="<c:url value='/register'/>">Đăng kí</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>

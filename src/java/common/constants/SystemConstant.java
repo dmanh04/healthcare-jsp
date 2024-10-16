@@ -17,4 +17,8 @@ public final class SystemConstant {
     public static final String ROLE_DOCTOR = "DOCTOR";
     
     public static final String ROLE_ADMIN = "ADMIN";
+    
+    public static final String USER_CURRENT = "USER_CURRENT";
+    
+    public static final String ROLE_CURRENT = "ROLE_CURRENT";
 }
