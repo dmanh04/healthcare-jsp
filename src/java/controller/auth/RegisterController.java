@@ -76,7 +76,7 @@ public class RegisterController extends HttpServlet {
                 .email(username)
                 .dob(java.sql.Date.valueOf(LocalDate.now()))
                 .build();
-        Roles roleUserDefault = roleDAO.findUserByRoleName(SystemConstant.ROLE_ADMIN);
+        Roles roleUserDefault = roleDAO.findUserByRoleName(SystemConstant.ROLE_USER);
         if (password.equals(confirmPassword)) {
             userDAO.add(user);
             User userAdd = userDAO.findByUsername(user.getUsername());
