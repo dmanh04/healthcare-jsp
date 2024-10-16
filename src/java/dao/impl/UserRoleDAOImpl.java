@@ -18,7 +18,7 @@ public class UserRoleDAOImpl extends DBContext implements IUserRoleDAO{
 
     @Override
     public void add(int userId, int roleId) {
-        String query = "INSERT INTO UserRoles (user_id, role_id) VALUES (?, ?)";
+        String query = "INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, userId);
             ps.setInt(2, roleId);
@@ -30,7 +30,7 @@ public class UserRoleDAOImpl extends DBContext implements IUserRoleDAO{
 
     @Override
     public void remove(int userId) {
-        String query = "DELETE FROM UserRoles WHERE user_id = ?";
+        String query = "DELETE FROM user_roles WHERE user_id = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, userId);
             ps.executeUpdate();

@@ -16,4 +16,6 @@ public interface IUserDAO {
     
     User add(User u);
     
+    User findByUsername(String username);
+    
 }

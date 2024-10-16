@@ -35,9 +35,9 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
     @Override
     public User add(User u) {
         String query = "INSERT INTO Users (username, password, first_name, last_name, email, phone, country, language,"
-                + " gender, date_of_birth, "
-                + " is_active, created_at, updated_at) "
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " gender, "
+                + " is_active) "
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, u.getUsername());
             ps.setString(2, u.getPassword());
@@ -48,14 +48,39 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             ps.setString(7, u.getCountry());
             ps.setString(8, u.getLanguage());
             ps.setString(9, u.getGender());
-            ps.setDate(10, new java.sql.Date(u.getDob().getTime()));
-            ps.setInt(11, u.getIsActive());
-            ps.setDate(12, new java.sql.Date(u.getCreatedAt().getTime()));
-            ps.setDate(13, new java.sql.Date(u.getUpdatedAt().getTime()));
-
+            ps.setInt(10, u.getIsActive());
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0) {
-                return u; 
+                return u;
+            }
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(DBContext.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        String query = "SELECT * FROM Users WHERE username = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    User user = new User.Builder()
+                            .id(rs.getInt("user_id"))
+                            .username(rs.getString("username"))
+                            .password(rs.getString("password"))
+                            .firstName(rs.getString("first_name"))
+                            .lastName(rs.getString("last_name"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .country(rs.getString("country"))
+                            .language(rs.getString("language"))
+                            .gender(rs.getString("gender"))
+                            .isActive(rs.getInt("is_active"))
+                            .build();
+                    return user;
+                }
             }
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(DBContext.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

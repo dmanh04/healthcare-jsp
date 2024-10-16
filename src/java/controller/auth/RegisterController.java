@@ -18,8 +18,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.lang.System.Logger;
+import java.time.LocalDate;
+import java.util.Date;
 import models.Roles;
 import models.User;
+
 
 
 @WebServlet(name = "RegisterController", urlPatterns = {"/register"})
@@ -51,7 +55,7 @@ public class RegisterController extends HttpServlet {
         String[] arr = name.split("\\s+");
         if(userDAO.existsByUsername(username)){
             request.setAttribute("errorMessage", "Username already exists.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.getRequestDispatcher("webapp/views/web/register.jsp").forward(request, response);
             return;
         }
         User user = new User.Builder()
@@ -61,16 +65,18 @@ public class RegisterController extends HttpServlet {
                 .lastName(arr[arr.length - 1])
                 .isActive(1)
                 .email(username)
+                .dob(java.sql.Date.valueOf(LocalDate.now()))
                 .build(); 
         Roles roleUserDefault = roleDAO.findUserByRoleName(SystemConstant.ROLE_USER);
         if (password.equals(confirmPassword)) {
             userDAO.add(user);
-            userRoleDAO.add(user.getId(), roleUserDefault.getId());
+            User userAdd = userDAO.findByUsername(user.getUsername());
+            userRoleDAO.add(userAdd.getId(), roleUserDefault.getId());
             request.setAttribute("successMessage", "Registration complete!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("webapp/common/login.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "Passwords did not match. <br/> Please enter the same password in both fields.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.getRequestDispatcher("webapp/views/web/register.jsp").forward(request, response);
         }
     }
 
