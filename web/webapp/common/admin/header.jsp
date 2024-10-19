@@ -1,17 +1,22 @@
-<%-- 
-    Document   : header
-    Created on : Oct 14, 2024, 10:45:22 PM
-    Author     : Admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="../../common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+
     <body>
-        <h1>Hello World!</h1>
-    </body>
+        <div class="header">
+            <div class="analytics">
+                <<i class="fa-solid fa-envelope fa-2x"></i>
+            </div>
+            <div class="bell">
+                <i class="fa-solid fa-bell fa-2x"></i>
+            </div>
+            <div class="user-profile">
+                <span>Xin chào Admin</span>
+                <img src="<c:url value='/webapp/assets/images/periodontal-icon.png' />" alt="Periodontal Icon"/>
+            </div> 
+        </div>
+    </div>
+
+</body>
 </html>
