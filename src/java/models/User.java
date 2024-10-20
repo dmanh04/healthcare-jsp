@@ -109,7 +109,6 @@ public class User {
         private Date createdAt;
         private Date updatedAt;
 
-        // Chained setter methods for each field
         public Builder id(int id) {
             this.id = id;
             return this;
