@@ -4,6 +4,10 @@
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.web.HomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StatusController</servlet-name>
+        <servlet-class>controller.auth.StatusController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>

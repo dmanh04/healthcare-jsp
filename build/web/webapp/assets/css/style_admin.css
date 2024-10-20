@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Root variables for easy theme management */
+:root {
+    --color-primary: #6C9BCF;
+    --color-danger: #FF0060;
+    --color-success: #1B9C85;
+    --color-warning: #F7D060;
+    --color-white: #fff;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-background: #f6f6f9;
+
+    --border-radius: 1.2rem;
+    --box-shadow: 0 2rem 3rem var(--color-light);
+    --font-family: "Montserrat", sans-serif;
+
+    --transition-speed: 0.3s ease-in-out;
+}
+
+/* Dark mode variables */
+.dark-mode-variables {
+    --color-background: #181a1e;
+    --color-white: #202528;
+    --color-dark: #edeffd;
+    --color-light: rgba(0, 0, 0, 0.4);
+}
+
+/* General body styles */
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-background);
+    color: var(--color-dark);
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--color-white);
+    border-bottom: 2px solid gray;
+}
+
+/* Notification bell */
+.bell {
+    margin: 0 20px;
+}
+
+.analytics {
+    float: left;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile img {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: var(--color-white);
+    padding-top: 20px;
+    border-right: 2px solid gray;
+    box-shadow: var(--box-shadow);
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    font-size: 15px;
+    color: var(--color-dark);
+    text-decoration: none;
+    display: block;
+    transition: background-color var(--transition-speed);
+}
+
+.sidebar a:hover {
+    background-color: var(--color-light);
+}
+
+.sidebar a i {
+    margin-right: 10px;
+}
+
+/* Main content */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #F5F7FA;
+}
+
+/* Container max-width and centering */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+}
+
+/* Button icon styling */
+button i {
+    font-size: 40px;
+    margin-left: 5px;
+}
+
+
+/* Modal styles */
+.modal-header, .modal-content {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: var(--font);
+    font-size: 0.88rem;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 100%; 
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: var(--color-white);
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 2px solid gray;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 15px;
+    color: var(--color-dark);
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: var(--color-background);
+}
+
