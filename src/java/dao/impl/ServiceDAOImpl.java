@@ -1,7 +1,10 @@
 package dao.impl;
 
 import common.utils.DBContext;
+import common.utils.StringUtils;
 import dao.ISerivceDAO;
+import dto.criteria.ServiceCriteria;
+import dto.response.PageableResponse;
 import java.util.ArrayList;
 import java.util.List;
 import models.Services;
@@ -11,28 +14,78 @@ import java.sql.ResultSet;
 public class ServiceDAOImpl extends DBContext implements ISerivceDAO {
 
     @Override
-    public List<Services> getAllSerivce() {
+    public PageableResponse<Services> getAllSerivceByFilter(ServiceCriteria serviceCriteria) {
         List<Services> serviceList = new ArrayList<>();
-        String query = "SELECT * FROM services";
-        try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Services service = new Services.Builder()
-                        .setId(rs.getInt("service_id"))
-                        .setServiceName(rs.getString("service_name"))
-                        .setDescription(rs.getString("description"))
-                        .setPrice(rs.getDouble("price"))
-                        .setDuration(rs.getInt("duration"))
-                        .setImage(rs.getString("image"))
-                        .setIcon(rs.getString("icon"))
-                        .setCreatedAt(rs.getDate("created_at"))
-                        .setUpdatedAt(rs.getDate("updated_at"))
-                        .build();
-                serviceList.add(service);
+
+        StringBuilder query = new StringBuilder("SELECT * FROM services")
+                .append(buildQueryFilter(serviceCriteria)) // Append filters
+                .append(" ORDER BY service_id") // Order by service_id
+                .append(" OFFSET ").append((serviceCriteria.getPage() - 1) * serviceCriteria.getLimit())
+                .append(" ROWS FETCH NEXT ").append(serviceCriteria.getLimit()).append(" ROWS ONLY");
+
+        try (PreparedStatement ps = connection.prepareStatement(query.toString())) {
+            if (StringUtils.checkString(serviceCriteria.getSearchName())) {
+                String searchName = serviceCriteria.getSearchName().trim();
+                ps.setString(1, "%" + searchName + "%");
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Services service = new Services.Builder()
+                            .setId(rs.getInt("service_id"))
+                            .setServiceName(rs.getString("service_name"))
+                            .setDescription(rs.getString("description"))
+                            .setPrice(rs.getDouble("price"))
+                            .setDuration(rs.getInt("duration"))
+                            .setImage(rs.getString("image"))
+                            .setIcon(rs.getString("icon"))
+                            .setCreatedAt(rs.getDate("created_at"))
+                            .setUpdatedAt(rs.getDate("updated_at"))
+                            .build();
+                    serviceList.add(service);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return serviceList;
+
+        int totalServices = getTotalServicesCount(serviceCriteria);
+        int totalPage = (int) Math.ceil((double) totalServices / serviceCriteria.getLimit());
+
+        return new PageableResponse.Builder<Services>()
+                .totalPage(totalPage)
+                .page(serviceCriteria.getPage())
+                .size(serviceList.size())
+                .data(serviceList)
+                .build();
+    }
+
+    @Override
+    public int getTotalServicesCount(ServiceCriteria serviceCriteria) {
+        StringBuilder countQuery = new StringBuilder("SELECT COUNT(*) FROM services")
+                .append(buildQueryFilter(serviceCriteria));
+
+        try (PreparedStatement ps = connection.prepareStatement(countQuery.toString())) {
+            if (StringUtils.checkString(serviceCriteria.getSearchName())) {
+                ps.setString(1, "%" + serviceCriteria.getSearchName() + "%");
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private String buildQueryFilter(ServiceCriteria serviceCriteria) {
+        StringBuilder query = new StringBuilder(" WHERE 1=1");
+        if (StringUtils.checkString(serviceCriteria.getSearchName())) {
+            query.append(" AND service_name LIKE ?");
+        }
+        return query.toString();
     }
 
     @Override

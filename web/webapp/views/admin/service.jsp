@@ -31,6 +31,51 @@
             #errorMessage.visible {
                 display: block;
             }
+
+            .header-service {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 25px;
+                padding: 10px 20px;
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .formSearch label {
+                font-weight: bold;
+                margin-right: 10px;
+                font-size: 16px;
+            }
+
+            .formSearch input[type="text"] {
+                padding: 8px;
+                border-radius: 5px;
+                border: 1px solid #ced4da;
+                width: 250px;
+            }
+
+            .formSearch button {
+                margin-left: 10px;
+            }
+
+            .inner-btn {
+                text-align: right;
+                padding-right: 20px;
+            }
+
+            .inner-btn .btn {
+                padding: 8px 15px;
+                border-radius: 5px;
+                background-color: #007bff;
+                border-color: #007bff;
+                transition: background-color 0.3s ease;
+            }
+
+            .inner-btn .btn:hover {
+                background-color: #0056b3;
+            }
         </style>
         <!--Header-->
         <%@include file="../../common/admin/header.jsp" %>
@@ -60,9 +105,17 @@
                 </div>
             </c:if>
 
-            <div class="inner-btn" style="text-align: end; padding-right: 20px; padding-bottom: 20px">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
+            <div class="header-service">
+                <form class="formSearch" action="<c:url value='/admin/service'/>" method="get">
+                    <label>Search name: </label>
+                    <input type="text" name="search" value="${param.search != null ? param.search : ''}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <div class="inner-btn">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
+                </div>
             </div>
+
             <div class="container">
                 <table class="table table-striped table-hover">
                     <thead>
@@ -76,7 +129,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="service" items="${listService}">
+                        <c:forEach var="service" items="${pageableService.data}">
                             <tr>
                                 <td>${service.id}</td>
                                 <td>${service.serviceName}</td>
@@ -141,6 +194,30 @@
                     </tbody>
                 </table>
             </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <!-- Previous Button -->
+                    <li class="page-item <c:if test="${pageableService.page == 1}">disabled</c:if>">
+                        <a class="page-link" href="<c:url value='/admin/service?page=${pageableService.page - 1}&search=${param.search}'/>">Previous</a>
+                    </li>
+
+                    <c:set var="totalPages" value="${pageableService.totalPage}" />
+                    <c:set var="currentPage" value="${pageableService.page}" />
+
+                    <c:if test="${totalPages > 0}">
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <li class="page-item <c:if test="${i == currentPage}">active</c:if>">
+                                <a class="page-link" href="<c:url value='/admin/service?page=${i}&search=${param.search}'/>">${i}</a>
+                            </li>
+                        </c:forEach>
+                    </c:if>
+
+                    <li class="page-item <c:if test="${pageableService.page == pageableService.totalPage}">disabled</c:if>">
+                        <a class="page-link" href="<c:url value='/admin/service?page=${pageableService.page + 1}&search=${param.search}'/>">Next</a>
+                    </li>
+                </ul>
+            </nav>    
         </div>
         <!-- Delete Confirmation Modal (Use only one modal for all delete actions) -->
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
@@ -164,6 +241,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <!-- Add Service Modal -->
         <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
@@ -249,10 +328,10 @@
                         });
             }
 
-            <c:forEach var="service" items="${listService}">
-            document.getElementById(`serviceName${service.id}`).addEventListener('blur', function () {
-                checkServiceName(${service.id}); // Pass the serviceId to the function
-            });
+            <c:forEach var="service" items="${pageableService.data}">
+                document.getElementById(`serviceName${service.id}`).addEventListener('blur', function () {
+                    checkServiceName(${service.id}); // Pass the serviceId to the function
+                });
             </c:forEach>
 
             function showDeleteModal(serviceId, serviceName) {

@@ -2,7 +2,7 @@
 <%@include file="../taglib.jsp"%>
 
 <aside class="sidebar">
-    <a href="<c:url value='/admin/home'/>">
+    <a href="<c:url value='/admin'/>">
         <i class="fa-solid fa-house"></i> Trang chủ
     </a>
     <a href="#">
@@ -20,7 +20,7 @@
     <a href="#">
         <i class="fa-solid fa-chart-bar"></i> Quản tài chính
     </a>
-    <a href="#">
+    <a href="<c:url value='/logout'/>">
         <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
     </a>
 </aside>

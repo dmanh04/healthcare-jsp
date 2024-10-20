@@ -3,6 +3,8 @@ package controller.admin;
 import common.constants.SystemConstant;
 import dao.ISerivceDAO;
 import dao.impl.ServiceDAOImpl;
+import dto.criteria.ServiceCriteria;
+import dto.response.PageableResponse;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -36,8 +38,19 @@ public class AdminServiceController extends HttpServlet {
                 response.sendRedirect("/Healthcare/403");
                 return;
             } else {
-                List<Services> listService = serviceDAO.getAllSerivce();
-                request.setAttribute("listService", listService);
+                String searchName = request.getParameter("search");
+                String pageParam = request.getParameter("page");
+                String limitParam = request.getParameter("limit");
+                int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
+                int limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 10;
+                ServiceCriteria serviceCriteria = new ServiceCriteria.Builder()
+                        .searchName(searchName)
+                        .page(page)
+                        .limit(3)
+                        .build();
+                System.out.println(serviceCriteria);
+                PageableResponse<Services> pageableService = serviceDAO.getAllSerivceByFilter(serviceCriteria);
+                request.setAttribute("pageableService", pageableService);
                 request.getRequestDispatcher("/webapp/views/admin/service.jsp").forward(request, response);
             }
         }

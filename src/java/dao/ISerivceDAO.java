@@ -4,7 +4,8 @@
  */
 package dao;
 
-import java.util.List;
+import dto.criteria.ServiceCriteria;
+import dto.response.PageableResponse;
 import models.Services;
 
 /**
@@ -13,7 +14,9 @@ import models.Services;
  */
 public interface ISerivceDAO {
     
-    List<Services> getAllSerivce();
+    PageableResponse<Services> getAllSerivceByFilter(ServiceCriteria serviceCriteria);
+    
+    int getTotalServicesCount(ServiceCriteria serviceCriteria);
     
     Services findServiceById(int id);
     
