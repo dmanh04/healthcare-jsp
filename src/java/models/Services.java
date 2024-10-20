@@ -11,82 +11,130 @@ import java.util.Date;
  * @author Admin
  */
 public class Services {
+
     private int id;
     private String serviceName;
     private String description;
     private double price;
     private int duration;
+    private String image;
+    private String icon;
     private Date createdAt;
     private Date updatedAt;
 
-    public Services() {
-    }
-
-    public Services(int id, String serviceName, String description, double price, int duration, Date createdAt, Date updatedAt) {
-        this.id = id;
-        this.serviceName = serviceName;
-        this.description = description;
-        this.price = price;
-        this.duration = duration;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    private Services(Builder builder) {
+        this.id = builder.id;
+        this.serviceName = builder.serviceName;
+        this.description = builder.description;
+        this.price = builder.price;
+        this.duration = builder.duration;
+        this.image = builder.image;
+        this.icon = builder.icon;
+        this.createdAt = builder.createdAt;
+        this.updatedAt = builder.updatedAt;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getServiceName() {
         return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public int getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public String getImage() {
+        return image;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public static class Builder {
+
+        private int id;
+        private String serviceName;
+        private String description;
+        private double price;
+        private int duration;
+        private String image;
+        private String icon;
+        private Date createdAt;
+        private Date updatedAt;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setServiceName(String serviceName) {
+            this.serviceName = serviceName;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setDuration(int duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public Builder setImage(String image) {
+            this.image = image;
+            return this;
+        }
+
+        public Builder setIcon(String icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public Builder setCreatedAt(Date createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder setUpdatedAt(Date updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        public Services build() {
+            return new Services(this);
+        }
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Services{" + "id=" + id + ", serviceName=" + serviceName + ", description=" + description + ", price=" + price + ", duration=" + duration + ", image=" + image + ", icon=" + icon + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+    }
+
 }
