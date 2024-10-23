@@ -102,6 +102,8 @@ public class AdminUserController extends HttpServlet {
                 String firstName = request.getParameter("firstName");
                 String lastName = request.getParameter("lastName");
                 String phone = request.getParameter("phone");
+                String dob = request.getParameter("dob");
+                String gender = request.getParameter("gender");
                 int roleId = Integer.parseInt(request.getParameter("roleId"));
                 if (username == null || password == null || firstName == null || lastName == null || phone == null) {
                     request.setAttribute("errorMessage", "All fields are required.");
@@ -109,6 +111,10 @@ public class AdminUserController extends HttpServlet {
                     return;
                 }
                 try {
+                    java.sql.Date dateOfBirth = null;
+                    if (dob != null && !dob.isEmpty()) {
+                        dateOfBirth = java.sql.Date.valueOf(dob);
+                    }
                     String hashedPassword = PasswordUtils.hashPassword(password);
                     UserCreationRequest userRequest = new UserCreationRequest.Builder()
                             .username(username)
@@ -117,12 +123,15 @@ public class AdminUserController extends HttpServlet {
                             .lastName(lastName)
                             .phone(phone)
                             .roleId(roleId)
+                            .dob(dateOfBirth)
+                            .gender(gender)
                             .build();
                     userDAO.createUser(userRequest);
                     User userAdd = userDAO.findByUsername(userRequest.getUsername());
                     userRoleDAO.add(userAdd.getId(), userRequest.getRoleId());
                     response.sendRedirect(request.getContextPath() + "/admin/user?add=true");
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
                     request.getRequestDispatcher("/webapp/views/admin/user.jsp").forward(request, response);
                 }

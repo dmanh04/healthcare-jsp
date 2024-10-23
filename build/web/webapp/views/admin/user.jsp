@@ -161,6 +161,7 @@
                             <th>ID</th>
                             <th>Username</th>
                             <th>Full name</th>
+                            <th>Date of birth</th>
                             <th>Role</th>
                             <th>Phone</th>
                             <th>Actions</th>
@@ -172,6 +173,7 @@
                                 <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.firstName} ${user.lastName}</td>
+                                <td>${user.dob}</td>
                                 <td>${user.role.roleName}</td>
                                 <td>${user.phone}</td>
                                 <td>
@@ -214,6 +216,34 @@
                                             </div>
 
                                             <div class="mb-3">
+                                                <label class="form-label">Gender*</label>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="form-check me-3">
+                                                        <input type="radio" class="form-check-input" id="genderMale${user.id}" name="gender" value="Male" 
+                                                               <c:if test="${user.gender == 'Male'}">checked</c:if> required>
+                                                        <label class="form-check-label" for="genderMale${user.id}">Male</label>
+                                                    </div>
+                                                    <div class="form-check me-3">
+                                                        <input type="radio" class="form-check-input" id="genderFemale${user.id}" name="gender" value="Female" 
+                                                               <c:if test="${user.gender == 'Female'}">checked</c:if>>
+                                                        <label class="form-check-label" for="genderFemale${user.id}">Female</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input" id="genderOther${user.id}" name="gender" value="Other" 
+                                                               <c:if test="${user.gender == 'Other'}">checked</c:if>>
+                                                        <label class="form-check-label" for="genderOther${user.id}">Other</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="dob${user.id}" class="form-label">Dob</label>
+                                                <input type="date" class="form-control" id="dob{
+                                                           user.id
+                                                       }" name="dob" value="${user.dob}">
+                                            </div>
+
+                                            <div class="mb-3">
                                                 <label for="phone${user.id}" class="form-label">Phone</label>
                                                 <input type="text" class="form-control" id="phone${user.id}" name="phone" value="${user.phone}" required>
                                             </div>
@@ -241,6 +271,8 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        
                         <!-- Upload Photos Modal -->
                         <div class="modal fade" id="uploadPhotosModal${user.id}" tabindex="-1" aria-labelledby="uploadPhotosModalLabel${user.id}" aria-hidden="true">
                             <div class="modal-dialog">
@@ -353,12 +385,38 @@
                                 <label for="lastName" class="form-label">Last name*</label>
                                 <input type="text" class="form-control" id="lastName" name="lastName" required>
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Gender*</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check me-3">
+                                        <input type="radio" class="form-check-input" id="genderMale" name="gender" value="Male" required>
+                                        <label class="form-check-label" for="genderMale">Male</label>
+                                    </div>
+                                    <div class="form-check me-3">
+                                        <input type="radio" class="form-check-input" id="genderFemale" name="gender" value="Female">
+                                        <label class="form-check-label" for="genderFemale">Female</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="genderOther" name="gender" value="Other">
+                                        <label class="form-check-label" for="genderOther">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Dob</label>
+                                <input type="date" class="form-control" id="dob" name="dob">
+                            </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone*</label>
                                 <input type="text" class="form-control" id="phone" name="phone" required>
                             </div>
+
+
                             <div class="mb-3">
-                                <label for="roleId" class="form-label">Role</label>
+                                <label for="roleId" class="form-label">Role*</label>
                                 <select name="roleId" id="roleId" class="form-select" required>
                                     <c:forEach items="${roleMap}" var="role">
                                         <option value="${role.key}">${role.value}</option>
