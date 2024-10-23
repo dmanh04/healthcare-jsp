@@ -43,6 +43,9 @@ public class AdminServiceController extends HttpServlet {
                 String limitParam = request.getParameter("limit");
                 int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
                 int limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 10;
+                session.setAttribute("search", searchName);
+                session.setAttribute("page", pageParam);
+                session.setAttribute("limit", limitParam);
                 ServiceCriteria serviceCriteria = new ServiceCriteria.Builder()
                         .searchName(searchName)
                         .page(page)

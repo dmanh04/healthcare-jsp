@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +36,19 @@ public class AdminUploadUserController extends HttpServlet {
             }
             userDAO.updatePhotos(userId, fileName);
         }
-        response.sendRedirect(request.getContextPath() + "/admin/user?edit=true");
+        HttpSession session = request.getSession();
+        String usernameSearch = (String) session.getAttribute("usernameSearch");
+        String fullnameSearch = (String) session.getAttribute("fullnameSearch");
+        String roleIdSearch = (String) session.getAttribute("roleIdSearch");
+        String page = (String) session.getAttribute("page");
+        String limit = (String) session.getAttribute("limit");
+        String redirectUrl = request.getContextPath() + "/admin/user?edit=true"
+                + (usernameSearch != null ? "&usernameSearch=" + usernameSearch : "")
+                + (fullnameSearch != null ? "&fullnameSearch=" + fullnameSearch : "")
+                + (roleIdSearch != null ? "&roleIdSearch=" + roleIdSearch : "")
+                + (page != null ? "&page=" + page : "")
+                + (limit != null ? "&limit=" + limit : "");
+        response.sendRedirect(redirectUrl);
     }
 
     private File getFolderUpload() {

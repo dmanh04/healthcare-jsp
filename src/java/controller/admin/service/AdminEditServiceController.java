@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import models.Services;
 
 /**
@@ -52,9 +53,17 @@ public class AdminEditServiceController extends HttpServlet {
                     .setImage(image)
                     .setIcon(icon)
                     .build();
-
             serviceDAO.updateService(updatedService);
-            response.sendRedirect(request.getContextPath() + "/admin/service?edit=true");
+            HttpSession session = request.getSession();
+            
+            String searchName = (String) session.getAttribute("search");
+            String page = (String) session.getAttribute("page");
+            String limit = (String) session.getAttribute("limit");
+            String redirectUrl = request.getContextPath() + "/admin/service?edit=true"
+                    + (searchName != null ? "&search=" + searchName : "")
+                    + (page != null ? "&page=" + page : "")
+                    + (limit != null ? "&limit=" + limit : "");
+            response.sendRedirect(redirectUrl);
         }
     }
 }

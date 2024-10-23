@@ -34,8 +34,8 @@ public class AdminDeleteUserController extends HttpServlet {
         if (userIdStr != null && !userIdStr.isEmpty()) {
             try {
                 int userId = Integer.parseInt(userIdStr);
-                userDAO.deleteUser(userId);  
-                 response.sendRedirect(request.getContextPath() + "/admin/user?remove=true&id=" + userId);
+                userDAO.deleteUser(userId);
+                response.sendRedirect(request.getContextPath() + "/admin/user?remove=true&id=" + userId);
             } catch (NumberFormatException e) {
                 response.sendRedirect(request.getContextPath() + "/admin/user?remove=false");
             } catch (Exception ex) {

@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/controller/admin/user/AdminEditUserController.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/dao/impl/UserDAOImpl.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/dao/IUserDAO.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/views/admin/user.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/controller/admin/service/AdminEditServiceController.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/controller/admin/user/AdminUserController.java</file>
         </group>
     </open-files>
 </project-private>
