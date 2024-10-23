@@ -249,11 +249,6 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="email${user.id}" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email${user.id}" name="email" value="${user.email}" required>
-                                            </div>
-
-                                            <div class="mb-3">
                                                 <label for="roleId${user.id}" class="form-label">Role</label>
                                                 <select name="roleId" id="roleId${user.id}" class="form-select" required>
                                                     <c:forEach items="${roleMap}" var="role">

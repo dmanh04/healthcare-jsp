@@ -63,6 +63,11 @@ public class AdminUserController extends HttpServlet {
                 String limitParam = request.getParameter("limit");
                 int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
                 int limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 10;
+                session.setAttribute("usernameSearch", username);
+                session.setAttribute("fullnameSearch", fullname);
+                session.setAttribute("roleIdSearch", role);
+                session.setAttribute("page", pageParam);
+                session.setAttribute("limit", limitParam);
                 Integer roleId = (role != null && !role.isEmpty()) ? Integer.parseInt(role) : null;
                 UserCriteria userCriteria = new UserCriteria.Builder()
                         .fullname(fullname)
