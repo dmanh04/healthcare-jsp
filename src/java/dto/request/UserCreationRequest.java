@@ -4,6 +4,8 @@
  */
 package dto.request;
 
+import java.util.Date;
+
 /**
  *
  * @author Admin
@@ -16,6 +18,8 @@ public class UserCreationRequest {
     private String lastName;
     private String phone;
     private int roleId;
+    private Date dob;
+    private String gender;
 
 
     private UserCreationRequest(Builder builder) {
@@ -25,8 +29,18 @@ public class UserCreationRequest {
         this.lastName = builder.lastName;
         this.phone = builder.phone;
         this.roleId = builder.roleId;
+        this.dob = builder.dob;
+        this.gender = builder.gender;
+    }
+    
+    public String getGender() {
+        return gender;
     }
 
+    public Date getDob() {
+        return dob;
+    }
+    
     public String getUsername() {
         return username;
     }
@@ -59,7 +73,19 @@ public class UserCreationRequest {
         private String lastName;
         private String phone;
         private int roleId;
+        private Date dob;
+        private String gender;
+        
+        public Builder gender(String gender) {
+            this.gender = gender;
+            return this;
+        }
 
+        public Builder dob(Date dob) {
+            this.dob = dob;
+            return this;
+        }
+        
         public Builder username(String username) {
             this.username = username;
             return this;

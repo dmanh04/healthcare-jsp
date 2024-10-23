@@ -4,6 +4,7 @@
  */
 package dto.response;
 
+import java.util.Date;
 import models.Roles;
 
 public class UserResponse {
@@ -16,6 +17,8 @@ public class UserResponse {
     private String email;
     private Roles role;
     private String photos;
+    private String gender;
+    private Date dob;
 
     private UserResponse(Builder builder) {
         this.id = builder.id;
@@ -26,6 +29,8 @@ public class UserResponse {
         this.email = builder.email;
         this.role = builder.role;
         this.photos = builder.photos; 
+        this.dob = builder.dob;
+        this.gender = builder.gender;
     }
 
     public static class Builder {
@@ -38,7 +43,19 @@ public class UserResponse {
         private String email;
         private Roles role;
         private String photos;
+        private String gender;
+        private Date dob;
 
+        public Builder gender(String gender) {
+            this.gender = gender;  
+            return this;
+        }
+        
+        public Builder dob(Date dob) {
+            this.dob = dob;  
+            return this;
+        }
+        
         public Builder photos(String photos) {
             this.photos = photos;  
             return this;
@@ -84,6 +101,14 @@ public class UserResponse {
         }
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+    
     public int getId() {
         return id;
     }

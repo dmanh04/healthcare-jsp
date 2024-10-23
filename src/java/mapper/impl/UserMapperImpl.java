@@ -10,7 +10,6 @@ import mapper.IUserMapper;
 import models.Roles;
 import models.User;
 
-
 public class UserMapperImpl implements IUserMapper {
     
     private final IRoleDAO roleDAO;
@@ -31,6 +30,8 @@ public class UserMapperImpl implements IUserMapper {
                 .phone(user.getPhone())
                 .role(role)
                 .photos(user.getPhotos())
+                .gender(user.getGender())
+                .dob(user.getDob())
                 .build();
     }
     

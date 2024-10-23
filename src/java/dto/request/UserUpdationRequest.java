@@ -1,5 +1,7 @@
 package dto.request;
 
+import java.util.Date;
+
 public class UserUpdationRequest {
 
     private int id;
@@ -8,6 +10,8 @@ public class UserUpdationRequest {
     private String lastName;
     private String phone;
     private int roleId;
+    private Date dob;
+    private String gender;
 
     private UserUpdationRequest(Builder builder) {
         this.username = builder.username;
@@ -16,6 +20,12 @@ public class UserUpdationRequest {
         this.phone = builder.phone;
         this.roleId = builder.roleId;
         this.id = builder.id;
+        this.dob = builder.dob;
+        this.gender = builder.gender;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     public int getId() {
@@ -25,7 +35,6 @@ public class UserUpdationRequest {
     public String getUsername() {
         return username;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -43,19 +52,36 @@ public class UserUpdationRequest {
         return roleId;
     }
 
+    public Date getDob() {
+        return dob;
+    }
+
     public static class Builder {
+
         private int id;
         private String username;
         private String firstName;
         private String lastName;
         private String phone;
         private int roleId;
+        private Date dob;
+        private String gender;
+
+        public Builder gender(String gender) {
+            this.gender = gender;
+            return this;
+        }
+        
+        public Builder dob(Date dob) {
+            this.dob = dob;
+            return this;
+        }
 
         public Builder id(int id) {
             this.id = id;
             return this;
         }
-        
+
         public Builder username(String username) {
             this.username = username;
             return this;

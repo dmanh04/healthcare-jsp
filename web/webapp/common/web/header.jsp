@@ -55,13 +55,7 @@
                     <a class="nav-link" href="#">Khách hàng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Chuyên gia tư vấn</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Cửa hàng</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kiến thức</a>
+                    <a class="nav-link" href="<c:url value='/advisor'/>">Chuyên gia tư vấn</a>
                 </li>
             </ul>
             <button class="btn-small">

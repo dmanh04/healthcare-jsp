@@ -10,6 +10,7 @@ import dto.criteria.UserCriteria;
 import dto.request.UserCreationRequest;
 import dto.request.UserUpdationRequest;
 import dto.response.PageableResponse;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -225,8 +226,8 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
 
     @Override
     public boolean createUser(UserCreationRequest userCreationRequest) {
-        String query = "INSERT INTO users (username, password, first_name, last_name, phone, email ,is_active, photos) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (username, password, first_name, last_name, phone, email ,is_active, photos, date_of_birth, gender ) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, userCreationRequest.getUsername());
             ps.setString(2, userCreationRequest.getPassword());
@@ -236,6 +237,8 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             ps.setString(6, userCreationRequest.getUsername());
             ps.setInt(7, 1);
             ps.setString(8, SystemConstant.PHOTOS_DEFAULT);
+            ps.setDate(9, (Date) userCreationRequest.getDob());
+            ps.setString(10, userCreationRequest.getGender());
             int affectedRows = ps.executeUpdate();
             return affectedRows > 0;
         } catch (Exception ex) {
@@ -262,14 +265,16 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
 
     @Override
     public void updateUser(UserUpdationRequest userUpdationRequest) {
-        String query = "UPDATE users SET username = ?, first_name = ?, last_name = ?, phone = ? "
-                + "WHERE user_id = ? AND is_active = 1";
+        String query = "UPDATE users SET username = ?, first_name = ?, last_name = ?, phone = ? , date_of_birth = ? , gender = ?"
+                + " WHERE user_id = ? AND is_active = 1";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, userUpdationRequest.getUsername());
             ps.setString(2, userUpdationRequest.getFirstName());
             ps.setString(3, userUpdationRequest.getLastName());
             ps.setString(4, userUpdationRequest.getPhone());
-            ps.setInt(5, userUpdationRequest.getId());
+            ps.setDate(5, (Date) userUpdationRequest.getDob());
+            ps.setString(6, userUpdationRequest.getGender());
+            ps.setInt(7, userUpdationRequest.getId());
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0) {
                 LOGGER.log(Level.INFO, "User with ID {0} updated successfully.", userUpdationRequest.getId());

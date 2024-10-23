@@ -27,11 +27,17 @@ public class AdminEditUserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        String dob = request.getParameter("dob");
         String username = request.getParameter("username");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String phone = request.getParameter("phone");
+        String gender = request.getParameter("gender");
         int roleId = Integer.parseInt(request.getParameter("roleId"));
+        java.sql.Date dateOfBirth = null;
+        if (dob != null && !dob.isEmpty()) {
+            dateOfBirth = java.sql.Date.valueOf(dob);
+        }
         UserUpdationRequest userUpdationRequest = new UserUpdationRequest.Builder()
                 .id(id)
                 .username(username)
@@ -39,6 +45,8 @@ public class AdminEditUserController extends HttpServlet {
                 .lastName(lastName)
                 .phone(phone)
                 .roleId(roleId)
+                .dob(dateOfBirth)
+                .gender(gender)
                 .build();
         userDAO.updateUser(userUpdationRequest);
         userRoleDAO.updateByUserId(id, roleId);
