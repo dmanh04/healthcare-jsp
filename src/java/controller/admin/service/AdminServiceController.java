@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.admin.service;
 
 import common.constants.SystemConstant;
 import dao.ISerivceDAO;

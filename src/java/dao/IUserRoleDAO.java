@@ -14,5 +14,7 @@ import models.Roles;
 public interface IUserRoleDAO {
     void add(int userId, int roleId);
     
+    void updateByUserId(int userId, int roleId);
+    
     void remove(int userId);
 }

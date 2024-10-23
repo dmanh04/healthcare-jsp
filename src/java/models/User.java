@@ -18,6 +18,7 @@ public class User {
     private int isActive;
     private Date createdAt;
     private Date updatedAt;
+    private String photos;
 
     private User(Builder builder) {
         this.id = builder.id;
@@ -34,6 +35,7 @@ public class User {
         this.isActive = builder.isActive;
         this.createdAt = builder.createdAt;
         this.updatedAt = builder.updatedAt;
+        this.photos = builder.photos;
     }
 
     public int getId() {
@@ -92,6 +94,10 @@ public class User {
         return updatedAt;
     }
 
+    public String getPhotos() {
+        return photos;  // Getter for photos
+    }
+
     public static class Builder {
 
         private int id;
@@ -108,9 +114,15 @@ public class User {
         private int isActive;
         private Date createdAt;
         private Date updatedAt;
+        private String photos;
 
         public Builder id(int id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder photos(String photos) {
+            this.photos = photos;
             return this;
         }
 
@@ -188,6 +200,5 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone + ", country=" + country + ", language=" + language + ", gender=" + gender + ", dob=" + dob + ", isActive=" + isActive + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
     }
-    
-    
+
 }

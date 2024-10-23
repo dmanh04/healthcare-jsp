@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  *
  * @author Admin
  */
-public class UserRoleDAOImpl extends DBContext implements IUserRoleDAO{
+public class UserRoleDAOImpl extends DBContext implements IUserRoleDAO {
 
     @Override
     public void add(int userId, int roleId) {
@@ -38,5 +38,23 @@ public class UserRoleDAOImpl extends DBContext implements IUserRoleDAO{
             java.util.logging.Logger.getLogger(DBContext.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
-    
+
+    @Override
+    public void updateByUserId(int userId, int roleId) {
+        String query = "UPDATE user_roles SET role_id = ? WHERE user_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, roleId);
+            ps.setInt(2, userId);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                java.util.logging.Logger.getLogger(DBContext.class.getName())
+                        .log(java.util.logging.Level.INFO, "User role updated successfully for userId: {0}", userId);
+            } else {
+                java.util.logging.Logger.getLogger(DBContext.class.getName())
+                        .log(java.util.logging.Level.WARNING, "No user found with userId: {0}", userId);
+            }
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(DBContext.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
 }

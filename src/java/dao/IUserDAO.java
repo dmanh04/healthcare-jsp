@@ -4,6 +4,10 @@
  */
 package dao;
 
+import dto.criteria.UserCriteria;
+import dto.request.UserCreationRequest;
+import dto.request.UserUpdationRequest;
+import dto.response.PageableResponse;
 import models.User;
 
 /**
@@ -12,10 +16,22 @@ import models.User;
  */
 public interface IUserDAO {
     
+    PageableResponse<User> getAllUserByFilter(UserCriteria userCriteria);
+    
     boolean existsByUsername(String username);
+    
+    boolean existsUpdateByUsername(String username, int id);
+    
+    boolean createUser(UserCreationRequest userCreationRequest);
     
     User add(User u);
     
+    void updateUser(UserUpdationRequest userUpdationRequest);
+    
     User findByUsername(String username);
+    
+    void deleteUser(int id);
+    
+    void updatePhotos(int id, String photos);
     
 }

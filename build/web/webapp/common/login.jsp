@@ -23,10 +23,10 @@
                 errorMessage.textContent = "";
                 if (username === "" || password === "") {
                     errorMessage.textContent = "Username and password cannot be empty!";
-                    return false; // Prevent form submission
+                    return false;
                 }
 
-                return true; // Allow form submission
+                return true;
             }
         </script>
     </head>
