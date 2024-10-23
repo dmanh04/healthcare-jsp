@@ -250,30 +250,30 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div class="modal-body">
                         <span id="errorMessage"></span>
                         <form id="addServiceForm" action="<c:url value='/admin/service'/>" method="post">
                             <div class="mb-3">
-                                <label for="serviceName" class="form-label">Service Name</label>
-                                <input type="text" class="form-control" id="serviceName" name="serviceName" required>
+                                <label for="serviceName" class="form-label">Service Name*</label>
+                                <input type="text" class="form-control" id="serviceName" onblur="checkName()" name="serviceName" required>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">Price</label>
+                                <label for="price" class="form-label">Price*</label>
                                 <input type="number" class="form-control" id="price" name="price" step="0.01" required>
                             </div>
                             <div class="mb-3">
-                                <label for="duration" class="form-label">Duration (in minutes)</label>
+                                <label for="duration" class="form-label">Duration (in minutes)*</label>
                                 <input type="number" class="form-control" id="duration" name="duration" required>
                             </div>
                             <div class="mb-3">
-                                <label for="image" class="form-label">Image URL</label>
-                                <input type="text" class="form-control" id="image" name="image">
+                                <label for="image" class="form-label">Image URL*</label>
+                                <input type="text" class="form-control" id="image" name="image" required="">
                             </div>
                             <div class="mb-3">
                                 <label for="icon" class="form-label">Icon URL</label>
@@ -329,9 +329,9 @@
             }
 
             <c:forEach var="service" items="${pageableService.data}">
-                document.getElementById(`serviceName${service.id}`).addEventListener('blur', function () {
-                    checkServiceName(${service.id}); // Pass the serviceId to the function
-                });
+            document.getElementById(`serviceName${service.id}`).addEventListener('blur', function () {
+                checkServiceName(${service.id}); // Pass the serviceId to the function
+            });
             </c:forEach>
 
             function showDeleteModal(serviceId, serviceName) {

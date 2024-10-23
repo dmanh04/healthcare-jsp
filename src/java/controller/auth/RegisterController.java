@@ -5,6 +5,7 @@
 package controller.auth;
 
 import common.constants.SystemConstant;
+import common.utils.PasswordUtils;
 import dao.IRoleDAO;
 import dao.IUserDAO;
 import dao.IUserRoleDAO;
@@ -67,14 +68,16 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("webapp/views/web/register.jsp").forward(request, response);
             return;
         }
+        String hashPassword = PasswordUtils.hashPassword(password);
         User user = new User.Builder()
                 .username(username)
-                .password(password)
+                .password(hashPassword)
                 .firstName(arr[0])
                 .lastName(arr[arr.length - 1])
                 .isActive(1)
                 .email(username)
                 .dob(java.sql.Date.valueOf(LocalDate.now()))
+                .photos(SystemConstant.PHOTOS_DEFAULT)
                 .build();
         Roles roleUserDefault = roleDAO.findUserByRoleName(SystemConstant.ROLE_USER);
         if (password.equals(confirmPassword)) {

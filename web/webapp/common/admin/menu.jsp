@@ -11,8 +11,8 @@
     <a href="#">
         <i class="fa-solid fa-pills"></i> Quản lí thuốc
     </a>
-    <a href="#">
-        <i class="fa-solid fa-users-cog"></i> Quản lí nhân viên
+    <a href="<c:url value='/admin/user'/>">
+        <i class="fa-solid fa-users-cog"></i> Quản lí người dùng
     </a>
     <a href="<c:url value='/admin/service'/>">
         <i class="fa-solid fa-concierge-bell"></i> Quản lí dịch vụ

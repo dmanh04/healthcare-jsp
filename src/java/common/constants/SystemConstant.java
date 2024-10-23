@@ -21,4 +21,8 @@ public final class SystemConstant {
     public static final String USER_CURRENT = "USER_CURRENT";
     
     public static final String ROLE_CURRENT = "ROLE_CURRENT";
+    
+    public static final String PHOTOS_DEFAULT = "avatar.jpg";
+    
+    public static final String UPLOAD_DIRECTORY = "C://uploads";
 }
