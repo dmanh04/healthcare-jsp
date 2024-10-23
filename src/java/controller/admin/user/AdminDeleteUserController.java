@@ -4,19 +4,15 @@
  */
 package controller.admin.user;
 
-import common.constants.SystemConstant;
-import common.utils.PasswordUtils;
+
 import dao.IUserDAO;
 import dao.impl.UserDAOImpl;
-import dto.request.UserCreationRequest;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import models.User;
 
 /**
  *
@@ -46,7 +42,6 @@ public class AdminDeleteUserController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/admin/user?remove=false");
             }
         } else {
-            // No ID was provided
             response.sendRedirect(request.getContextPath() + "/admin/user?remove=false");
         }
     }

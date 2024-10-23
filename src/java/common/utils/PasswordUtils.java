@@ -14,8 +14,6 @@ public class PasswordUtils {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(password.getBytes());
             byte[] byteData = md.digest();
-
-            // Convert the byte array to a hexadecimal string
             StringBuilder sb = new StringBuilder();
             for (byte b : byteData) {
                 sb.append(String.format("%02x", b));

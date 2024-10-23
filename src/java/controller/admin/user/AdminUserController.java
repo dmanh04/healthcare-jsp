@@ -19,11 +19,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 import mapper.IUserMapper;
 import mapper.impl.UserMapperImpl;
-import models.Roles;
 import models.User;
 
 @WebServlet(name = "AdminUserController", urlPatterns = {"/admin/user"})
@@ -114,7 +112,7 @@ public class AdminUserController extends HttpServlet {
                     String hashedPassword = PasswordUtils.hashPassword(password);
                     UserCreationRequest userRequest = new UserCreationRequest.Builder()
                             .username(username)
-                            .password(hashedPassword) // Set hashed password
+                            .password(hashedPassword)
                             .firstName(firstName)
                             .lastName(lastName)
                             .phone(phone)
