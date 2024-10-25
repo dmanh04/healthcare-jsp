@@ -72,9 +72,9 @@ public class AuthenticateController extends HttpServlet {
             return;
         }
         Roles roleCurrent = roleDAO.findRoleByUserId(userCurrent.getId());
-        session.setAttribute(SystemConstant.USER_CURRENT, userCurrent.getUsername());
-        session.setAttribute(SystemConstant.ROLE_CURRENT, roleCurrent.getRoleName());
-
+        session.setAttribute(SystemConstant.USER_CURRENT, userCurrent.getUsername().trim());
+        session.setAttribute(SystemConstant.ROLE_CURRENT, roleCurrent.getRoleName().trim());
+        session.setAttribute(SystemConstant.PHOTOS_CURRENT, userCurrent.getPhotos().trim());
         System.out.println("User role: " + roleCurrent);
 
         if (!roleCurrent.getRoleName().equals(SystemConstant.ROLE_USER)) {

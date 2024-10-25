@@ -10,6 +10,7 @@
 .header .contact .container .list-contact {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 .header .contact .container .list-contact .item-contact a {
     text-decoration: none;

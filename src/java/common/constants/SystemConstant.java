@@ -21,6 +21,8 @@ public final class SystemConstant {
     public static final String USER_CURRENT = "USER_CURRENT";
 
     public static final String ROLE_CURRENT = "ROLE_CURRENT";
+    
+    public static final String PHOTOS_CURRENT = "PHOTOS_CURRENT";
 
     public static final String PHOTOS_DEFAULT = "avatar.jpg";
 
