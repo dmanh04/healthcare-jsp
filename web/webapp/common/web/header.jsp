@@ -11,7 +11,7 @@
                 <li class="item-contact"><a href="#">Hỗ trợ</a></li>
                 <li class="item-contact"><a href="#">Tuyển dụng</a></li>
                 <li class="item-contact"><a href="#">Liên hệ</a></li>
-                <c:choose>
+                    <c:choose>
                         <c:when test="${not empty sessionScope.USER_CURRENT}">
                         <li class="item-contact">
                             <a href="#">Xin chào, ${sessionScope.USER_CURRENT}</a>
@@ -58,10 +58,16 @@
                     <a class="nav-link" href="<c:url value='/advisor'/>">Chuyên gia tư vấn</a>
                 </li>
             </ul>
-            <button class="btn-small">
+            <button class="btn-small" id="appointment">
                 <i class="fa-solid fa-calendar-check"></i> Đặt lịch hẹn
             </button>
         </div>
     </div>
+
+    <script>
+        document.getElementById('appointment').onclick = function () {
+            window.location.href = '<c:url value="/appointment" />';
+        };
+    </script>
 </header>
 
