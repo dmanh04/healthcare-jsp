@@ -4,7 +4,7 @@
 <header class="header">
     <div class="contact">
         <div class="container">
-            <ul class="list-contact">
+            <ul class="list-contact" style="align-items: center">
                 <li class="item-contact">
                     <a href="#">093 186 3366 | 096 361 4566</a>
                 </li>
@@ -14,10 +14,11 @@
                     <c:choose>
                         <c:when test="${not empty sessionScope.USER_CURRENT}">
                         <li class="item-contact">
-                            <a href="#">Xin chào, ${sessionScope.USER_CURRENT}</a>
-                        </li>
-                        <li class="item-contact">
-                            <a href="<c:url value='/logout'/>">Đăng xuất</a>
+                            <a href="<c:url value='/account'/>" style="display: flex; align-items: center; gap: 5px;">
+                                <span>Xin chào, ${sessionScope.USER_CURRENT}</span>
+                                <img  src="<c:url value='/uploads/${sessionScope.PHOTOS_CURRENT}'/>" style="height: 25px;"   alt="photos"/>
+                            </a>
+                            
                         </li>
                     </c:when>
 
@@ -36,7 +37,7 @@
     <div class="menu">
         <div class="container">
             <a href="<c:url value="/home"/>">
-                <img src="webapp/assets/images/logo.jpg" alt="" />
+                <img src="/Healthcare/webapp/assets/images/logo.jpg" alt="" />
             </a>
             <ul class="nav">
                 <li class="nav-item">
@@ -49,7 +50,7 @@
                     <a class="nav-link" href="#">Dịch vụ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Đội ngũ bác sĩ</a>
+                    <a class="nav-link" href="<c:url value='/doctors'/>">Đội ngũ bác sĩ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Khách hàng</a>

@@ -25,7 +25,6 @@ public class FileDownloadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fileName = request.getPathInfo().substring(1);
         File file = new File(SystemConstant.UPLOAD_DIRECTORY, fileName);
-
         if (file.exists() && !file.isDirectory()) {
             response.setContentType(getServletContext().getMimeType(file.getName()));
             response.setContentLength((int) file.length());
