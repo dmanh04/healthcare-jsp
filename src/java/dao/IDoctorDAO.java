@@ -14,4 +14,8 @@ import models.User;
 public interface IDoctorDAO {
     
     List<User> findAllDoctor();
+    
+    User findDoctorById(int id);
+    
+    List<User> selectFourDoctors();
 }

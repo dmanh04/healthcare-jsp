@@ -37,7 +37,7 @@
     <div class="menu">
         <div class="container">
             <a href="<c:url value="/home"/>">
-                <img src="webapp/assets/images/logo.jpg" alt="" />
+                <img src="/Healthcare/webapp/assets/images/logo.jpg" alt="" />
             </a>
             <ul class="nav">
                 <li class="nav-item">
@@ -50,7 +50,7 @@
                     <a class="nav-link" href="#">Dịch vụ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Đội ngũ bác sĩ</a>
+                    <a class="nav-link" href="<c:url value='/doctors'/>">Đội ngũ bác sĩ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Khách hàng</a>
