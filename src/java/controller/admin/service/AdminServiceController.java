@@ -78,7 +78,17 @@ public class AdminServiceController extends HttpServlet {
                 .build();
         System.out.println(newService);
         serviceDAO.addService(newService);
-        response.sendRedirect(request.getContextPath() + "/admin/service?add=true");
+
+        HttpSession session = request.getSession();
+
+        String searchName = (String) session.getAttribute("search");
+        String page = (String) session.getAttribute("page");
+        String limit = (String) session.getAttribute("limit");
+        String redirectUrl = request.getContextPath() + "/admin/service?add=true"
+                + (searchName != null ? "&search=" + searchName : "")
+                + (page != null ? "&page=" + page : "")
+                + (limit != null ? "&limit=" + limit : "");
+        response.sendRedirect(redirectUrl);
     }
 
     @Override

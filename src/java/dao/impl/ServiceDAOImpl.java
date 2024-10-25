@@ -5,11 +5,15 @@ import common.utils.StringUtils;
 import dao.ISerivceDAO;
 import dto.criteria.ServiceCriteria;
 import dto.response.PageableResponse;
+import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.List;
 import models.Services;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServiceDAOImpl extends DBContext implements ISerivceDAO {
 
@@ -191,6 +195,32 @@ public class ServiceDAOImpl extends DBContext implements ISerivceDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public Map<Integer, Services> getIdAndService() {
+        Map<Integer, Services> serviceMap = new HashMap<>();
+        String query = "SELECT service_id, service_name, description, price, duration, image, icon, created_at, updated_at FROM services";
+
+        try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Services service = new Services.Builder()
+                        .setId(rs.getInt("service_id"))
+                        .setServiceName(rs.getString("service_name"))
+                        .setDescription(rs.getString("description"))
+                        .setPrice(rs.getDouble("price"))
+                        .setDuration(rs.getInt("duration"))
+                        .setImage(rs.getString("image"))
+                        .setIcon(rs.getString("icon"))
+                        .setCreatedAt(rs.getDate("created_at"))
+                        .setUpdatedAt(rs.getDate("updated_at"))
+                        .build();
+                serviceMap.put(service.getId(), service);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return serviceMap;
     }
 
 }
