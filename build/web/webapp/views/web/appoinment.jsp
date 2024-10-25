@@ -187,13 +187,13 @@
                 const dateInput = document.getElementById('date');
                 const today = new Date();
                 const dd = String(today.getDate()).padStart(2, '0');
-                const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+                const mm = String(today.getMonth() + 1).padStart(2, '0'); 
                 const yyyy = today.getFullYear();
                 const formattedToday = yyyy + '-' + mm + '-' + dd;
                 dateInput.setAttribute('min', formattedToday);
                 today.setDate(today.getDate() + 7);
                 const maxDd = String(today.getDate()).padStart(2, '0');
-                const maxMm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+                const maxMm = String(today.getMonth() + 1).padStart(2, '0'); 
                 const maxYyyy = today.getFullYear();
                 const formattedMaxDate = maxYyyy + '-' + maxMm + '-' + maxDd;
 
