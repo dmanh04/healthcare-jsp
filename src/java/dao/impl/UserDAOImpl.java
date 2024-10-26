@@ -302,4 +302,21 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
             LOGGER.log(Level.SEVERE, "Error updating photos for user with ID {0}: {1}", new Object[]{id, ex.getMessage()});
         }
     }
+
+    @Override
+    public void updatePassword(String newPassword, int id) {
+        String query = "UPDATE users SET password = ? WHERE user_id = ? AND is_active = 1";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, newPassword);
+            ps.setInt(2, id);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                LOGGER.log(Level.INFO, "Password updated successfully for user with ID {0}.", id);
+            } else {
+                LOGGER.log(Level.WARNING, "No active user found with ID {0} for password update.", id);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error updating password for user with ID {0}: {1}", new Object[]{id, ex.getMessage()});
+        }
+    }
 }

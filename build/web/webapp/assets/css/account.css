@@ -1,0 +1,167 @@
+
+.account {
+    width: 100%;
+    display: flex;
+    font-family: Arial, sans-serif;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sub-menu {
+    width: 20%;
+    background-color: var(--color-gray-bg);
+    color: #fff;
+    padding: 20px 0;
+}
+
+.sub-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-item {
+    padding: 20px 66px;
+}
+.sub-name{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.sub-name img{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+}
+
+.sub-name span{
+    color: var(--color-black);
+    font-size: 1.8rem;
+}
+.sub-link {
+    color: var(--color-black);
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.sub-item:hover {
+    background-color: #0056b3;
+}
+
+.sub-item:hover .sub-link{
+    color: var(--color-white);
+}
+
+.body {
+    width: 80% !important;
+    flex-grow: 1 !important;
+    padding: 20px !important;
+}
+
+.breadcum {
+    font-size: 16px !important;
+    color: #555 !important;
+    padding: 10px !important;
+    background-color: #e9ecef !important;
+    border-radius: 5px !important;
+    margin-bottom: 15px !important;
+}
+
+.breadcum::before {
+    content: "\f015" !important; /* Font Awesome home icon */
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    margin-right: 5px !important;
+    color: var(--color-blue) !important;
+}
+
+.main-content form {
+    padding: 20px !important;
+    background-color: #fff !important;
+}
+
+.form-label {
+    font-weight: bold !important;
+    margin-bottom: 5px !important;
+    display: inline-block !important;
+    font-size: 1.4rem !important;
+}
+
+.form-control {
+    width: 100% !important;
+    padding: 10px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 5px !important;
+    margin-bottom: 15px !important;
+    font-size: 16px !important;
+}
+
+.form-control:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5) !important;
+    outline: none !important;
+}
+
+.mb-3 {
+    margin-bottom: 20px !important;
+}
+
+.form-check-input {
+    margin-right: 8px !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.me-3 {
+    margin-right: 15px !important;
+}
+
+.btn {
+    display: inline-block !important;
+    padding: 10px 20px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    color: #fff !important;
+    background-color: #007bff !important ;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s !important;
+}
+
+
+.btn-primary {
+    background-color: var(--color-blue) !important;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3 !important;
+}
+
+.center{
+    text-align: center !important;
+}
