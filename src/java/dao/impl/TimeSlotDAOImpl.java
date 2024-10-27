@@ -38,4 +38,22 @@ public class TimeSlotDAOImpl extends DBContext implements ITimeSlotDAO {
         return listTimeSlot;
     }
 
+    @Override
+    public TimeSlot getTimeSlotById(int id) {
+        String query = "SELECT * FROM time_slots WHERE timeslot_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new TimeSlot.Builder()
+                            .id(rs.getInt("timeslot_id"))
+                            .time(rs.getString("time"))
+                            .build();
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeSlotDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null; 
+    }
 }

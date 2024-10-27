@@ -36,7 +36,7 @@
                     </li>
                     <ul class="sub-nav">
                         <li class="sub-item"><a href="<c:url value='account'/>" class="sub-link">Cập nhật hồ sơ</a></li>
-                        <li class="sub-item"><a href="#" class="sub-link">Quản lý hoạt động</a></li>
+                       <li class="sub-item"><a href="<c:url value='manage-appointment'/>" class="sub-link">Quản lý hoạt động</a></li>
                         <li class="sub-item"><a href="<c:url value='change-password'/>" class="sub-link">Đổi mật khẩu</a></li>
                         <li class="sub-item"><a href="<c:url value='/logout'/>" class="sub-link">Đăng xuất</a></li>
                     </ul>
@@ -63,6 +63,7 @@
                             <div class="center">
                                 <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
                             </div>
+                        </form>    
                     </div>
                 </div>
             </div>

@@ -89,39 +89,26 @@
                 <p>An tâm đồng hành cùng đội ngũ bác sĩ chuyên môn cao và nhiều năm kinh nghiệm.</p>
 
                 <div class="doctor-grid">
-                    <div class="doctor-card">
-                        <img src="webapp/assets/images/manh2.jpg" alt="BS. Phạm Hồng Đức">
-                        <h3>BS. Phạm Hồng Đức</h3>
+                    <c:forEach items="${requestScope.data}" var="d">
+                        <div class="doctor-card">
+                            <a href="<c:url value='/doctors/${d.id}'/>">
+                                <img src="<c:url value='/uploads/${d.photos}'/>" alt="${d.firstName} ${d.lastName}">
+                                <h3>BS.${d.firstName} ${d.lastName}</h3>
+                            </a>
+                        </div>
+                    </c:forEach>
+                    <div class="details-link">
+                        <a href="<c:url value='/doctors'/>">Xem chi tiết</a>
                     </div>
-
-                    <div class="doctor-card">
-                        <img src="webapp/assets/images/manh2.jpg" alt="BS. Nguyễn Thanh Tuấn">
-                        <h3>BS. Nguyễn Thanh Tuấn</h3>
-                    </div>
-
-                    <div class="doctor-card">
-                        <img src="webapp/assets/images/manh2.jpg" alt="BS. Nguyễn An Nghĩa">
-                        <h3>BS. Nguyễn An Nghĩa</h3>
-                    </div>
-
-                    <div class="doctor-card">
-                        <img src="webapp/assets/images/manh2.jpg" alt="BS. Lê Vân">
-                        <h3>BS. Lê Vân</h3>
-                    </div>
-                </div>
-
-                <div class="details-link">
-                    <a href="#">Xem chi tiết</a>
                 </div>
             </div>
-        </section>
 
 
 
 
 
-        <!--Footer-->
-        <%@include file="../../common/web/footer.jsp" %>
-        <!--Footer-->
+            <!--Footer-->
+            <%@include file="../../common/web/footer.jsp" %>
+            <!--Footer-->
     </body>
 </html>

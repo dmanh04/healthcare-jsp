@@ -82,6 +82,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
                             .country(rs.getString("country"))
                             .language(rs.getString("language"))
                             .gender(rs.getString("gender"))
+                            .dob(rs.getDate("date_of_birth"))
                             .isActive(rs.getInt("is_active"))
                             .photos(rs.getString("photos"))
                             .build();
@@ -318,5 +319,35 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Error updating password for user with ID {0}: {1}", new Object[]{id, ex.getMessage()});
         }
+    }
+
+    @Override
+    public User findById(int id) {
+         String query = "SELECT * FROM Users WHERE user_id = ? AND is_active = 1";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new User.Builder()
+                            .id(rs.getInt("user_id"))
+                            .username(rs.getString("username"))
+                            .password(rs.getString("password"))
+                            .firstName(rs.getString("first_name"))
+                            .lastName(rs.getString("last_name"))
+                            .email(rs.getString("email"))
+                            .phone(rs.getString("phone"))
+                            .country(rs.getString("country"))
+                            .language(rs.getString("language"))
+                            .gender(rs.getString("gender"))
+                            .dob(rs.getDate("date_of_birth"))
+                            .isActive(rs.getInt("is_active"))
+                            .photos(rs.getString("photos"))
+                            .build();
+                }
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error finding user by id: {0}", ex.getMessage());
+        }
+        return null;
     }
 }

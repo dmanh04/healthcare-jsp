@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <footer class="footer">
     <div class="container">
-        <div class="content">
+        <div class="content" style="background-color: var(--color-blue);">
             <div class="content-item">
                 <div class="header">
-                    <img src="webapp/assets/images/logo.jpg" alt="" />
+                    <img src="/Healthcare/webapp/assets/images/logo.jpg" alt="" />
                     <h5>Thuy Duc</h5>
                 </div>
                 <p class="description">

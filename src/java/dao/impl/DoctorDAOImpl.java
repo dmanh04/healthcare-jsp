@@ -7,9 +7,9 @@ package dao.impl;
 import common.utils.DBContext;
 import dao.IDoctorDAO;
 import java.util.ArrayList;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import models.User;
 
@@ -48,6 +48,71 @@ public class DoctorDAOImpl extends DBContext implements IDoctorDAO {
             ex.printStackTrace();
         }
         return doctors;
+    }
+
+      @Override
+    public User findDoctorById(int id) {
+        String sql = "select * from users where user_id = ? and is_active = 1";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User.Builder()
+                        .id(rs.getInt("user_id"))
+                        .username(rs.getString("username"))
+                        .password(rs.getString("password"))
+                        .firstName(rs.getString("first_name"))
+                        .lastName(rs.getString("last_name"))
+                        .email(rs.getString("email"))
+                        .phone(rs.getString("phone"))
+                        .country(rs.getString("country"))
+                        .language(rs.getString("language"))
+                        .gender(rs.getString("gender"))
+                        .isActive(rs.getInt("is_active"))
+                        .photos(rs.getString("photos"))
+                        .build();
+
+                return u;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> selectFourDoctors() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT  u.*\n"
+                + "FROM users u\n"
+                + "JOIN user_roles ur ON u.user_id = ur.user_id\n"
+                + "JOIN roles r ON ur.role_id = r.role_id\n"
+                + "WHERE r.role_name = 'doctor' AND u.is_active = 1\n"
+                + "ORDER BY u.user_id; ";
+        try {
+             PreparedStatement st = connection.prepareStatement(sql);
+             ResultSet rs = st.executeQuery();
+             while(rs.next()){
+                  User u = new User.Builder()
+                        .id(rs.getInt("user_id"))
+                        .username(rs.getString("username"))
+                        .password(rs.getString("password"))
+                        .firstName(rs.getString("first_name"))
+                        .lastName(rs.getString("last_name"))
+                        .email(rs.getString("email"))
+                        .phone(rs.getString("phone"))
+                        .country(rs.getString("country"))
+                        .language(rs.getString("language"))
+                        .gender(rs.getString("gender"))
+                        .isActive(rs.getInt("is_active"))
+                        .photos(rs.getString("photos"))
+                        .build();
+                  list.add(u);
+             }
+        } catch (SQLException e) {
+        }
+       
+        return list;
     }
 
 }

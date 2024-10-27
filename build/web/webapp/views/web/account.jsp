@@ -27,6 +27,7 @@
             </div>
         </div>
 
+
         <div class="account">
             <div class="content">
                 <div class="sub-menu">
@@ -36,7 +37,7 @@
                     </li>
                     <ul class="sub-nav">
                         <li class="sub-item"><a href="#" class="sub-link">Cập nhật hồ sơ</a></li>
-                        <li class="sub-item"><a href="#" class="sub-link">Quản lý hoạt động</a></li>
+                        <li class="sub-item"><a href="<c:url value='manage-appointment'/>" class="sub-link">Quản lý hoạt động</a></li>
                         <li class="sub-item"><a href="<c:url value='change-password'/>" class="sub-link">Đổi mật khẩu</a></li>
                         <li class="sub-item"><a href="<c:url value='/logout'/>" class="sub-link">Đăng xuất</a></li>
                     </ul>
@@ -80,7 +81,7 @@
 
                             <div class="mb-3">
                                 <label for="dob${user.id}" class="form-label">Dob</label>
-                                <input type="date" class="form-control" id="dob${user.id}" name="dob" value="${user.dob}">
+                                <input type="date" class="form-control" id="dob${user.id}" name="dob"  value="${user.dob}">
                             </div>
 
                             <div class="mb-3">
@@ -129,9 +130,9 @@
                                             const reader = new FileReader();
                                             reader.onload = function (e) {
                                                 const userPhoto = document.getElementById('userPhoto');
-                                                userPhoto.src = e.target.result; 
+                                                userPhoto.src = e.target.result;
                                             };
-                                            reader.readAsDataURL(files[0]); 
+                                            reader.readAsDataURL(files[0]);
                                         }
                                     }
                                     document.addEventListener("DOMContentLoaded", function () {

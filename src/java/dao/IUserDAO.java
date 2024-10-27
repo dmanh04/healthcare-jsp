@@ -30,6 +30,8 @@ public interface IUserDAO {
     
     User findByUsername(String username);
     
+    User findById(int id);
+    
     void updatePassword(String newPassword, int id);
     
     void deleteUser(int id);
