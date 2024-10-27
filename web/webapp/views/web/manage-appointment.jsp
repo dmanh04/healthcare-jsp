@@ -193,7 +193,9 @@
                                         <td>${appointment.phone}</td>
                                         <td>
                                             <c:if test="${appointment.status == 'PENDING'}">
-                                                <button type="button" class="cancel-btn" onclick="setIdCancel(${appointment.id})" data-bs-toggle="modal" data-bs-target="#confirmModal">Hủy lịch hẹn</button>
+                                                <button type="button" class="cancel-btn" 
+                                                        onclick="setIdCancel(${appointment.id}, ${appointment.doctor.id})" 
+                                                        data-bs-toggle="modal" data-bs-target="#confirmModal">Hủy lịch hẹn</button>
                                             </c:if>
                                         </td>
                                     </tr>
@@ -219,6 +221,7 @@
                         <button type="button" class="btn btn-secondary" style="font-size: 14px !important;" data-bs-dismiss="modal">Đóng</button>
                         <form action="account/cancel" method="post">
                             <input id="idCancel" name="idCancel" type="hidden"/>
+                            <input id="doctorId" name="doctorId" type="hidden"/>
                             <button type="button" class="btn btn-danger" style="background-color: red !important; font-size: 14px !important;" id="confirmCancelButton">Hủy lịch hẹn</button>
                         </form>        
                     </div>
@@ -234,22 +237,22 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
         <script>
-                                                    document.addEventListener("DOMContentLoaded", function () {
-                                                        const urlParams = new URLSearchParams(window.location.search);
-                                                        const success = urlParams.get("success");
-                                                        if (success === "true") {
-                                                            const toastEl = document.getElementById("toast");
-                                                            const toast = new bootstrap.Toast(toastEl);
-                                                            toast.show();
-                                                        }
-                                                    });
-                                                    function setIdCancel(id) {
-                                                        document.getElementById('idCancel').value = id;
-                                                    }
-
-                                                    document.getElementById('confirmCancelButton').addEventListener('click', function () {
-                                                        this.closest('form').submit();
-                                                    });
+                                                            document.addEventListener("DOMContentLoaded", function () {
+                                                                const urlParams = new URLSearchParams(window.location.search);
+                                                                const success = urlParams.get("success");
+                                                                if (success === "true") {
+                                                                    const toastEl = document.getElementById("toast");
+                                                                    const toast = new bootstrap.Toast(toastEl);
+                                                                    toast.show();
+                                                                }
+                                                            });
+                                                            function setIdCancel(appointmentId, doctorId) {
+                                                                document.getElementById('idCancel').value = appointmentId;
+                                                                document.getElementById('doctorId').value = doctorId;
+                                                            }
+                                                            document.getElementById('confirmCancelButton').addEventListener('click', function () {
+                                                                this.closest('form').submit();
+                                                            });
         </script>
     </body>
 </html>

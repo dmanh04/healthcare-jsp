@@ -4,9 +4,11 @@
  */
 package dao;
 
+import dto.request.NotificationRequest;
+
 
 public interface INotificationDAO {
     
-    void addNotification(int id);
+    void addNotification(NotificationRequest notificationRequest);
     
 }

@@ -4,6 +4,7 @@
  */
 package dao.impl;
 
+import common.constants.SystemConstant;
 import common.utils.DBContext;
 import dao.IAppointmentDAO;
 import dto.request.AppointmentRequest;
@@ -46,10 +47,12 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
     @Override
     public List<Appointments> getListAppointmentsByDoctorIdAndDate(int doctorId, java.util.Date date) {
         List<Appointments> appointmentsList = new ArrayList<>();
-        String query = "SELECT * FROM appointments WHERE doctor_id = ? AND appointment_date = ?";
+        String query = "SELECT * FROM appointments WHERE doctor_id = ? AND appointment_date = ? AND status != ?";
+
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, doctorId);
             ps.setDate(2, new java.sql.Date(date.getTime()));
+            ps.setString(3, SystemConstant.CANCELLED); 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Appointments appointment = new Appointments.Builder()
@@ -69,7 +72,7 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
                 }
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "SQL Error retrieving appointments: {0}", ex.getMessage());
+            LOGGER.log(Level.SEVERE, "SQL Error retrieving appointments: {0}", ex);
         }
         return appointmentsList;
     }
