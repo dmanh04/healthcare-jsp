@@ -13,4 +13,8 @@ public interface IAppointmentDAO {
     void addAppointment(AppointmentRequest appointmentRequest);
     
     List<Appointments> getListAppointmentsByDoctorIdAndDate(int doctorId, Date date);
+    
+    List<Appointments> getListAppointmentsByCustomerId(int id);
+    
+    void updateStatusById(int id, String status);
 }

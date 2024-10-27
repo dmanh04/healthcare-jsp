@@ -16,9 +16,15 @@
                         <li class="item-contact">
                             <a href="<c:url value='/account'/>" style="display: flex; align-items: center; gap: 5px;">
                                 <span>Xin chào, ${sessionScope.USER_CURRENT}</span>
-                                <img  src="<c:url value='/uploads/${sessionScope.PHOTOS_CURRENT}'/>" style="height: 25px;"   alt="photos"/>
+                                <img  src="<c:url value='/uploads/${sessionScope.PHOTOS_CURRENT}'/>" style="height: 30px; width: 30px; object-fit: cover;"   alt="photos"/>
                             </a>
-                            
+
+                        </li>
+                        <li>
+                            <button id="notification-bell" class="btn btn-link">
+                                <span class="badge bg-danger" id="notification-count">0</span>
+                                <i class="fa fa-bell" style="font-size: 1.5rem;"></i>
+                            </button>
                         </li>
                     </c:when>
 

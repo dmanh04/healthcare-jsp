@@ -4,6 +4,7 @@
  */
 package dao.impl;
 
+import common.constants.SystemConstant;
 import common.utils.DBContext;
 import dao.IAppointmentDAO;
 import dto.request.AppointmentRequest;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Appointments;
-
 
 public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
 
@@ -47,14 +47,16 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
     @Override
     public List<Appointments> getListAppointmentsByDoctorIdAndDate(int doctorId, java.util.Date date) {
         List<Appointments> appointmentsList = new ArrayList<>();
-        String query = "SELECT * FROM appointments WHERE doctor_id = ? AND appointment_date = ?";
+        String query = "SELECT * FROM appointments WHERE doctor_id = ? AND appointment_date = ? AND status != ?";
+
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, doctorId);
             ps.setDate(2, new java.sql.Date(date.getTime()));
+            ps.setString(3, SystemConstant.CANCELLED); 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Appointments appointment = new Appointments.Builder()
-                            .id(rs.getInt("appointment_id")) 
+                            .id(rs.getInt("appointment_id"))
                             .customerId(rs.getInt("customer_id"))
                             .doctorId(rs.getInt("doctor_id"))
                             .serviceId(rs.getInt("service_id"))
@@ -63,15 +65,62 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
                             .note(rs.getString("notes"))
                             .phone(rs.getString("phone"))
                             .timeSlotId(rs.getInt("time_slot_id"))
-                            .createdAt(rs.getTimestamp("created_at")) 
+                            .createdAt(rs.getTimestamp("created_at"))
                             .updatedAt(rs.getTimestamp("updated_at"))
                             .build();
                     appointmentsList.add(appointment);
                 }
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "SQL Error retrieving appointments: {0}", ex.getMessage());
+            LOGGER.log(Level.SEVERE, "SQL Error retrieving appointments: {0}", ex);
         }
         return appointmentsList;
+    }
+
+    @Override
+    public List<Appointments> getListAppointmentsByCustomerId(int id) {
+        List<Appointments> appointmentsList = new ArrayList<>();
+        String query = "SELECT * FROM appointments WHERE customer_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Appointments appointment = new Appointments.Builder()
+                            .id(rs.getInt("appointment_id"))
+                            .customerId(rs.getInt("customer_id"))
+                            .doctorId(rs.getInt("doctor_id"))
+                            .serviceId(rs.getInt("service_id"))
+                            .appointmentDate(rs.getDate("appointment_date"))
+                            .status(rs.getString("status"))
+                            .note(rs.getString("notes"))
+                            .phone(rs.getString("phone"))
+                            .timeSlotId(rs.getInt("time_slot_id"))
+                            .createdAt(rs.getTimestamp("created_at"))
+                            .updatedAt(rs.getTimestamp("updated_at"))
+                            .build();
+                    appointmentsList.add(appointment);
+                }
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "SQL Error retrieving appointments by customer ID: {0}", ex.getMessage());
+        }
+        return appointmentsList;
+    }
+
+    @Override
+    public void updateStatusById(int id, String status) {
+        String query = "UPDATE appointments SET status = ? WHERE appointment_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, status);
+            ps.setInt(2, id);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                LOGGER.log(Level.INFO, "Appointment status updated successfully.");
+            } else {
+                LOGGER.log(Level.WARNING, "No appointment was updated.");
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error updating appointment status: {0}", ex.getMessage());
+        }
     }
 }
