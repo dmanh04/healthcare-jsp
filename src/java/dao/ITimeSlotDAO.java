@@ -11,4 +11,6 @@ import models.TimeSlot;
 public interface ITimeSlotDAO {
     
     List<TimeSlot> getAllTimeSlot();
+    
+    TimeSlot getTimeSlotById(int id);
 }
