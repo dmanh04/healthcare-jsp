@@ -3,15 +3,18 @@ package controller.web;
 import common.constants.SystemConstant;
 import dao.IAppointmentDAO;
 import dao.IDoctorDAO;
+import dao.INotificationDAO;
 import dao.ISerivceDAO;
 import dao.ITimeSlotDAO;
 import dao.IUserDAO;
 import dao.impl.AppointmentDAOImpl;
 import dao.impl.DoctorDAOImpl;
+import dao.impl.NotificationDAOImpl;
 import dao.impl.ServiceDAOImpl;
 import dao.impl.TimeSlotDAOImpl;
 import dao.impl.UserDAOImpl;
 import dto.request.AppointmentRequest;
+import dto.request.NotificationRequest;
 import dto.response.TimeSlotResponse;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -38,6 +41,7 @@ public class AppointmentController extends HttpServlet {
     private final ITimeSlotDAO timeSlotDAO;
     private final IDoctorDAO doctorDAO;
     private final ITimeSlotMapper timeSlotMapper;
+    private final INotificationDAO notificationDAO;
 
     public AppointmentController() {
         this.appointmentDAO = new AppointmentDAOImpl();
@@ -46,6 +50,7 @@ public class AppointmentController extends HttpServlet {
         this.timeSlotDAO = new TimeSlotDAOImpl();
         this.doctorDAO = new DoctorDAOImpl();
         this.timeSlotMapper = new TimeSlotMapperImpl();
+        this.notificationDAO = new NotificationDAOImpl();
     }
 
     @Override
@@ -106,8 +111,14 @@ public class AppointmentController extends HttpServlet {
                 .timeSlotId(timeSlotId)
                 .customerId(userCurrent.getId())
                 .build();
-        System.out.println(appointmentRequest);
         this.appointmentDAO.addAppointment(appointmentRequest);
+        String notificationMessage = String.format("New appointment booked by %s (%s) on %s for service ID %d.",
+                name, phone, appointmentDate, serviceId);
+        NotificationRequest notiDoctor = new NotificationRequest.Builder()
+                .recipientUserId(doctorId)
+                .message(notificationMessage)
+                .build();
+        this.notificationDAO.addNotification(notiDoctor);        
         response.sendRedirect("manage-appointment?success=true");
     }
 

@@ -8,55 +8,38 @@ public class Notification {
 
     private int id;
     private int recipientUserId;
-    private int senderUserId;
-    private int appointmentId;
     private String message;
     private int isRead;
 
     private Notification(Builder builder) {
         this.id = builder.id;
         this.recipientUserId = builder.recipientUserId;
-        this.senderUserId = builder.senderUserId;
-        this.appointmentId = builder.appointmentId;
         this.message = builder.message;
         this.isRead = builder.isRead;
     }
 
     public static class Builder {
-
         private int id;
         private int recipientUserId;
-        private int senderUserId;
-        private int appointmentId;
         private String message;
         private int isRead;
 
-        public Builder setId(int id) {
+        public Builder id(int id) {
             this.id = id;
             return this;
         }
 
-        public Builder setRecipientUserId(int recipientUserId) {
+        public Builder userId(int recipientUserId) {
             this.recipientUserId = recipientUserId;
             return this;
         }
 
-        public Builder setSenderUserId(int senderUserId) {
-            this.senderUserId = senderUserId;
-            return this;
-        }
-
-        public Builder setAppointmentId(int appointmentId) {
-            this.appointmentId = appointmentId;
-            return this;
-        }
-
-        public Builder setMessage(String message) {
+        public Builder message(String message) {
             this.message = message;
             return this;
         }
 
-        public Builder setIsRead(int isRead) {
+        public Builder isRead(int isRead) {
             this.isRead = isRead;
             return this;
         }
@@ -74,14 +57,6 @@ public class Notification {
         return recipientUserId;
     }
 
-    public int getSenderUserId() {
-        return senderUserId;
-    }
-
-    public int getAppointmentId() {
-        return appointmentId;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -92,8 +67,7 @@ public class Notification {
 
     @Override
     public String toString() {
-        return "Notification{" + "id=" + id + ", recipientUserId=" + recipientUserId + ", senderUserId=" + senderUserId + ", appointmentId=" + appointmentId + ", message=" + message + ", isRead=" + isRead + '}';
+        return "Notification{" + "id=" + id + ", recipientUserId=" + recipientUserId + ", message=" + message + ", isRead=" + isRead + '}';
     }
-    
-    
+
 }
