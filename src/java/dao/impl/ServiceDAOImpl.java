@@ -22,8 +22,8 @@ public class ServiceDAOImpl extends DBContext implements ISerivceDAO {
         List<Services> serviceList = new ArrayList<>();
 
         StringBuilder query = new StringBuilder("SELECT * FROM services")
-                .append(buildQueryFilter(serviceCriteria)) // Append filters
-                .append(" ORDER BY service_id") // Order by service_id
+                .append(buildQueryFilter(serviceCriteria))
+                .append(" ORDER BY service_id")
                 .append(" OFFSET ").append((serviceCriteria.getPage() - 1) * serviceCriteria.getLimit())
                 .append(" ROWS FETCH NEXT ").append(serviceCriteria.getLimit()).append(" ROWS ONLY");
 
@@ -221,6 +221,31 @@ public class ServiceDAOImpl extends DBContext implements ISerivceDAO {
             e.printStackTrace();
         }
         return serviceMap;
+    }
+
+    @Override
+    public List<Services> getAllSerivce() {
+        List<Services> serviceList = new ArrayList<>();
+        String query = "SELECT * FROM services ORDER BY service_id"; 
+        try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Services service = new Services.Builder()
+                        .setId(rs.getInt("service_id"))
+                        .setServiceName(rs.getString("service_name"))
+                        .setDescription(rs.getString("description"))
+                        .setPrice(rs.getDouble("price"))
+                        .setDuration(rs.getInt("duration"))
+                        .setImage(rs.getString("image"))
+                        .setIcon(rs.getString("icon"))
+                        .setCreatedAt(rs.getDate("created_at"))
+                        .setUpdatedAt(rs.getDate("updated_at"))
+                        .build();
+                serviceList.add(service);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return serviceList;
     }
 
 }

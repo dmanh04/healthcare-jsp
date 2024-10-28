@@ -49,7 +49,7 @@ public class AdminServiceController extends HttpServlet {
                 ServiceCriteria serviceCriteria = new ServiceCriteria.Builder()
                         .searchName(searchName)
                         .page(page)
-                        .limit(3)
+                        .limit(limit)
                         .build();
                 System.out.println(serviceCriteria);
                 PageableResponse<Services> pageableService = serviceDAO.getAllSerivceByFilter(serviceCriteria);

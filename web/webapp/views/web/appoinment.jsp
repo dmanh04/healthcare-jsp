@@ -31,6 +31,35 @@
                 cursor: not-allowed;
                 opacity: 0.5;
             }
+
+            .status-confirmed {
+                background-color: #d4edda;
+                color: #155724;
+                font-weight: bold;
+                padding: 5px;
+                border-radius: 4px;
+            }
+            .status-cancelled {
+                background-color: #f8d7da;
+                color: #721c24;
+                font-weight: bold;
+                padding: 5px;
+                border-radius: 4px;
+            }
+            .status-completed {
+                background-color: #d1ecf1;
+                color: #0c5460;
+                font-weight: bold;
+                padding: 5px;
+                border-radius: 4px;
+            }
+            .status-pending {
+                background-color: #fff3cd;
+                color: #856404;
+                font-weight: bold;
+                padding: 5px;
+                border-radius: 4px;
+            }
         </style>
         <!--Header-->
         <%@include file="../../common/web/header.jsp" %>
@@ -165,11 +194,11 @@
                 const phoneError = document.getElementById('phoneError');
 
                 if (!validatePhoneNumber(phoneInput.value)) {
-                    phoneError.style.display = 'block'; 
-                    return false; 
+                    phoneError.style.display = 'block';
+                    return false;
                 } else {
-                    phoneError.style.display = 'none'; 
-                    return true; 
+                    phoneError.style.display = 'none';
+                    return true;
                 }
             }
 
@@ -187,13 +216,13 @@
                 const dateInput = document.getElementById('date');
                 const today = new Date();
                 const dd = String(today.getDate()).padStart(2, '0');
-                const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
                 const yyyy = today.getFullYear();
                 const formattedToday = yyyy + '-' + mm + '-' + dd;
                 dateInput.setAttribute('min', formattedToday);
                 today.setDate(today.getDate() + 7);
                 const maxDd = String(today.getDate()).padStart(2, '0');
-                const maxMm = String(today.getMonth() + 1).padStart(2, '0'); 
+                const maxMm = String(today.getMonth() + 1).padStart(2, '0');
                 const maxYyyy = today.getFullYear();
                 const formattedMaxDate = maxYyyy + '-' + maxMm + '-' + maxDd;
 

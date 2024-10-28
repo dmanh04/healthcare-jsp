@@ -323,7 +323,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
 
     @Override
     public User findById(int id) {
-         String query = "SELECT * FROM Users WHERE user_id = ? AND is_active = 1";
+        String query = "SELECT * FROM Users WHERE user_id = ? AND is_active = 1";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
