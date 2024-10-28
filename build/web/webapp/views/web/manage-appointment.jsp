@@ -153,6 +153,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Người đặt khám</th>
                                     <th>Bác sĩ</th>
                                     <th>Dịch vụ</th>
                                     <th>Ngày hẹn</th>
@@ -166,6 +167,7 @@
                             <tbody>
                                 <c:forEach var="appointment" items="${listAppointment}">
                                     <tr>
+                                        <td>${appointment.customerName}</td>
                                         <td>${appointment.doctor.firstName} ${appointment.doctor.lastName}</td>
                                         <td>${appointment.services.serviceName}</td>
                                         <td><fmt:formatDate value="${appointment.date}" pattern="yyyy-MM-dd" /></td>

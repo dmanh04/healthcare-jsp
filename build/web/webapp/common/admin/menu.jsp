@@ -5,18 +5,23 @@
     <a href="<c:url value='/admin'/>">
         <i class="fa-solid fa-house"></i> Trang chủ
     </a>
-    <a href="#">
-        <i class="fa-solid fa-users"></i> Quản lí khách hàng
+    <a href="<c:url value='/admin/appointment'/>">
+        <i class="fa-solid fa-users"></i> Quản lí lịch hẹn
     </a>
     <a href="#">
         <i class="fa-solid fa-pills"></i> Quản lí thuốc
     </a>
-    <a href="<c:url value='/admin/user'/>">
-        <i class="fa-solid fa-users-cog"></i> Quản lí người dùng
-    </a>
-    <a href="<c:url value='/admin/service'/>">
-        <i class="fa-solid fa-concierge-bell"></i> Quản lí dịch vụ
-    </a>
+    <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+        <a href="<c:url value='/admin/user'/>">
+            <i class="fa-solid fa-users-cog"></i> Quản lí người dùng
+        </a>
+    </c:if>
+
+    <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+        <a href="<c:url value='/admin/service'/>">
+            <i class="fa-solid fa-concierge-bell"></i> Quản lí dịch vụ
+        </a>
+    </c:if>    
     <a href="#">
         <i class="fa-solid fa-chart-bar"></i> Quản tài chính
     </a>

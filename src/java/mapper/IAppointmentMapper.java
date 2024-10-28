@@ -5,6 +5,7 @@
 package mapper;
 
 import dto.response.AppointmentResponse;
+import dto.response.PageableResponse;
 import java.util.List;
 import models.Appointments;
 
@@ -13,7 +14,9 @@ import models.Appointments;
  * @author Admin
  */
 public interface IAppointmentMapper {
-    
-   List<AppointmentResponse> toAppointmentResponse(List<Appointments> listAppointment);
-    
+
+    List<AppointmentResponse> toAppointmentResponse(List<Appointments> listAppointment);
+
+    PageableResponse<AppointmentResponse> toPageableResponse(PageableResponse<Appointments> pageableResponse);
+
 }

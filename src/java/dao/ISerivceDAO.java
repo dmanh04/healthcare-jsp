@@ -6,6 +6,7 @@ package dao;
 
 import dto.criteria.ServiceCriteria;
 import dto.response.PageableResponse;
+import java.util.List;
 import java.util.Map;
 import models.Services;
 
@@ -32,4 +33,6 @@ public interface ISerivceDAO {
     void deleteSerivceById(int id);
     
     Map<Integer, Services> getIdAndService();
+    
+    List<Services> getAllSerivce();
 }

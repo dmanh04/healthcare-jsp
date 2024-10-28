@@ -11,6 +11,7 @@ import dao.impl.ServiceDAOImpl;
 import dao.impl.TimeSlotDAOImpl;
 import dao.impl.UserDAOImpl;
 import dto.response.AppointmentResponse;
+import dto.response.PageableResponse;
 import java.util.ArrayList;
 import java.util.List;
 import mapper.IAppointmentMapper;
@@ -39,6 +40,7 @@ public class AppointmentMapperImpl implements IAppointmentMapper {
     public List<AppointmentResponse> toAppointmentResponse(List<Appointments> listAppointment) {
         List<AppointmentResponse> res = new ArrayList<>();
         for (Appointments appointments : listAppointment) {
+            User cusUser = this.userDAO.findById(appointments.getCustomerId());
             User doctor = this.userDAO.findById(appointments.getDoctorId());
             Services services = this.serivceDAO.findServiceById(appointments.getServiceId());
             TimeSlot timeSlot = this.timeSlotDAO.getTimeSlotById(appointments.getTimeSlotId());
@@ -51,10 +53,23 @@ public class AppointmentMapperImpl implements IAppointmentMapper {
                     .status(appointments.getStatus())
                     .notes(appointments.getNote())
                     .phone(appointments.getPhone())
+                    .customerName(appointments.getCustomerName())
+                    .customer(cusUser)
                     .build());
         }
         return res;
 
+    }
+
+    @Override
+    public PageableResponse<AppointmentResponse> toPageableResponse(PageableResponse<Appointments> pageableResponse) {
+        List<AppointmentResponse> list = toAppointmentResponse(pageableResponse.getData());
+        return new PageableResponse.Builder<AppointmentResponse>()
+                .totalPage(pageableResponse.getTotalPage())
+                .page(pageableResponse.getPage())
+                .size(list.size())
+                .data(list)
+                .build();
     }
 
 }

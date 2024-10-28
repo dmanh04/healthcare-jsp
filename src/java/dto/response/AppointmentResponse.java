@@ -10,7 +10,9 @@ import models.TimeSlot;
 import models.User;
 
 public class AppointmentResponse {
+
     private int id;
+    private User customer;
     private User doctor;
     private Services services;
     private Date date;
@@ -18,6 +20,24 @@ public class AppointmentResponse {
     private String status;
     private String notes;
     private String phone;
+    private String customerName;
+
+    private AppointmentResponse(Builder builder) {
+        this.id = builder.id;
+        this.doctor = builder.doctor;
+        this.services = builder.services;
+        this.date = builder.date;
+        this.timeSlot = builder.timeSlot;
+        this.status = builder.status;
+        this.notes = builder.notes;
+        this.phone = builder.phone;
+        this.customerName = builder.customerName;
+        this.customer = builder.customer;
+    }
+
+    public User getCustomer() {
+        return customer;
+    }
 
     public int getId() {
         return id;
@@ -50,21 +70,18 @@ public class AppointmentResponse {
     public String getPhone() {
         return phone;
     }
-    
-    
 
-    private AppointmentResponse(Builder builder) {
-        this.id = builder.id;
-        this.doctor = builder.doctor;
-        this.services = builder.services;
-        this.date = builder.date;
-        this.timeSlot = builder.timeSlot;
-        this.status = builder.status;
-        this.notes = builder.notes;
-        this.phone = builder.phone;
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    @Override
+    public String toString() {
+        return "AppointmentResponse{" + "id=" + id + ", customer=" + customer + ", doctor=" + doctor + ", services=" + services + ", date=" + date + ", timeSlot=" + timeSlot + ", status=" + status + ", notes=" + notes + ", phone=" + phone + ", customerName=" + customerName + '}';
     }
 
     public static class Builder {
+
         private int id;
         private User doctor;
         private Services services;
@@ -73,6 +90,18 @@ public class AppointmentResponse {
         private String status;
         private String notes;
         private String phone;
+        private String customerName;
+        private User customer;
+
+        public Builder customer(User customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public Builder customerName(String customerName) {
+            this.customerName = customerName;
+            return this;
+        }
 
         public Builder id(int id) {
             this.id = id;

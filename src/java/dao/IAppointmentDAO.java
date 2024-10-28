@@ -4,12 +4,17 @@
  */
 package dao;
 
+import dto.criteria.AppointmentCriteria;
 import dto.request.AppointmentRequest;
+import dto.response.PageableResponse;
 import java.util.Date;
 import java.util.List;
 import models.Appointments;
 
 public interface IAppointmentDAO {
+    
+    PageableResponse<Appointments> getListAppointmentsByFilterAdmin(AppointmentCriteria appointmentCriteria);
+    
     void addAppointment(AppointmentRequest appointmentRequest);
     
     List<Appointments> getListAppointmentsByDoctorIdAndDate(int doctorId, Date date);

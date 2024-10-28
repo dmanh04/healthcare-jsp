@@ -59,7 +59,6 @@ public class AppointmentRequest {
     public int getCustomerId() {
         return customerId;
     }
-    
 
     public static class Builder {
 
@@ -71,8 +70,7 @@ public class AppointmentRequest {
         private int serviceId;
         private String note;
         private int customerId;
-        
-        
+
         public Builder customerId(int customerId) {
             this.customerId = customerId;
             return this;
@@ -118,10 +116,4 @@ public class AppointmentRequest {
         }
     }
 
-    @Override
-    public String toString() {
-        return "AppointmentRequest{" + "name=" + name + ", phone=" + phone + ", appointmentDate=" + appointmentDate + ", doctorId=" + doctorId + ", timeSlotId=" + timeSlotId + ", serviceId=" + serviceId + ", note=" + note + ", customerId=" + customerId + '}';
-    }
-
-   
 }
