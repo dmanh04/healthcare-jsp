@@ -194,7 +194,7 @@
                                         <td>${appointment.notes}</td>
                                         <td>${appointment.phone}</td>
                                         <td>
-                                            <c:if test="${appointment.status == 'PENDING'}">
+                                            <c:if test="${appointment.status == 'PENDING' or appointment.status == 'CONFIRMED'}">
                                                 <button type="button" class="cancel-btn" 
                                                         onclick="setIdCancel(${appointment.id}, ${appointment.doctor.id})" 
                                                         data-bs-toggle="modal" data-bs-target="#confirmModal">Hủy lịch hẹn</button>
