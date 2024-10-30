@@ -153,6 +153,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Id cuộc hẹn</th>
                                     <th>Người đặt khám</th>
                                     <th>Bác sĩ</th>
                                     <th>Dịch vụ</th>
@@ -167,6 +168,7 @@
                             <tbody>
                                 <c:forEach var="appointment" items="${listAppointment}">
                                     <tr>
+                                        <td>${appointment.id}</td>
                                         <td>${appointment.customerName}</td>
                                         <td>${appointment.doctor.firstName} ${appointment.doctor.lastName}</td>
                                         <td>${appointment.services.serviceName}</td>

@@ -63,16 +63,5 @@
             </div>
         </div>
 
-        <div class="hr"></div>
-        <div class="footer-bottom">
-            <div class="left">
-                <p>Website thuộc quyền của nha Khoa Thúy Đức</p>
-            </div>
-            <div class="right">
-                <a href="">Chính sách và điều khoản</a>
-                <i class="fa-solid fa-grip-lines-vertical"></i>
-                <a href="">Chính sách bảo mật thông tin các nhân</a>
-            </div>
-        </div>
     </div>
 </footer>
