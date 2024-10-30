@@ -24,7 +24,7 @@ public class UserDAOImpl extends DBContext implements IUserDAO {
 
     @Override
     public boolean existsByUsername(String username) {
-        String query = "SELECT COUNT(*) FROM Users WHERE is_active = 1 AND username = ?";
+        String query = "SELECT COUNT(*) FROM Users WHERE username = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
