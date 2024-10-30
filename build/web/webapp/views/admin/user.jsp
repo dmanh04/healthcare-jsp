@@ -511,7 +511,7 @@
                         .then(response => response.text())
                         .then(data => {
                             if (data === 'true') {
-                                document.getElementById('errorMessage').innerText = 'Service name already exists.';
+                                document.getElementById('errorMessage').innerText = 'Username already exists.';
                             } else {
                                 document.getElementById('errorMessage').innerText = '';
                             }
