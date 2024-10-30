@@ -1,62 +1,63 @@
 /* Header */
 .header .contact {
-    background-color: var(--color-gray-bg);
-    padding: 15px 0px;
+    background-color: var(--color-gray-bg) !important;
+    padding: 15px 0px !important;
 }
 
 .header .contact .container {
-    justify-content: flex-end;
+    justify-content: flex-end !important;
 }
 .header .contact .container .list-contact {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
 }
 .header .contact .container .list-contact .item-contact a {
-    text-decoration: none;
-    font-size: 1.4rem;
-    color: var(--color-black);
+    text-decoration: none !important;
+    font-size: 1.4rem !important;
+    color: var(--color-black) !important;
 }
 
 .header .contact .container .list-contact .item-contact a:hover {
-    color: var(--color-blue);
+    color: var(--color-blue) !important;
 }
 
-.header .menu{
-    padding: 10px 0px;
+.header .menu {
+    padding: 10px 0px !important;
 }
 
-.header .menu .container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.header .menu .container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
 }
 
-.header .menu .container a img{
-    width: 6.5rem;
-    height: 6.5rem;
-    object-fit: cover;
+.header .menu .container a img {
+    width: 6.5rem !important;
+    height: 6.5rem !important;
+    object-fit: cover !important;
 }
 
-.header .menu .container .nav{
-    display: flex;
-    align-items: center;
+.header .menu .container .nav {
+    display: flex !important;
+    align-items: center !important;
 }
 
-.header .menu .container .nav .nav-item{
-    margin-right: 25px;
+.header .menu .container .nav .nav-item {
+    margin-right: 25px !important;
 }
 
-.header .menu .container .nav .nav-item .nav-link{
-    color: var(--color-gray);
-    font-size: 1.4rem;
-    font-weight: 600;
+.header .menu .container .nav .nav-item .nav-link {
+    color: var(--color-gray) !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
 }
 
-.header .menu .container .nav .nav-item .nav-link:hover{
-    color: var(--color-blue);
+.header .menu .container .nav .nav-item .nav-link:hover {
+    color: var(--color-blue) !important;
 }
 /* End Header */
+
 
 /* Banner */
 .banner{
@@ -261,184 +262,184 @@
 
 /* Login */
 .left {
-    width: 60%;
-    background-color: #e0f7fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 60% !important;
+    background-color: #e0f7fa !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 .left img {
-    max-width: 100%;
-    object-fit: cover;
+    max-width: 100% !important;
+    object-fit: cover !important;
 }
 
 .right {
-    width: 40%;
-    padding: 40px; /* Add padding for better spacing */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 40% !important;
+    padding: 40px !important; /* Add padding for better spacing */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .form-item {
-    margin-bottom: 20px; /* Space between input fields */
+    margin-bottom: 20px !important; /* Space between input fields */
 }
 
 .loginForm .text{
-    width: 105%;
-    text-align: end;
-    margin-bottom: 17px;
+    width: 105% !important;
+    text-align: end !important;
+    margin-bottom: 17px !important;
 }
 
 .loginForm .text a{
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .loginForm .text-2{
-    width: 105%;
-    text-align: center;
-    padding: 10px 0px;
+    width: 105% !important;
+    text-align: center !important;
+    padding: 10px 0px !important;
 }
 
 .form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc; /* Light border for inputs */
-    border-radius: 10px;
-    font-size: 16px;
+    width: 100% !important;
+    padding: 10px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
 }
 
 .form-control:focus {
-    border-color: #007bff; /* Change border color on focus */
-    outline: none; /* Remove default outline */
+    border-color: #007bff !important; /* Change border color on focus */
+    outline: none !important; /* Remove default outline */
 }
 
 .button {
-    width: 105%;
-    display: flex;
-    justify-content: center;
+    width: 105% !important;
+    display: flex !important;
+    justify-content: center !important;
 }
 
 
 .button .btn-small {
-    padding: 10px 20px;
-    width: 100%;
-    background-color: #007bff; /* Primary button color */
-    color: #fff; /* White text */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s; /* Smooth transition */
+    padding: 10px 20px !important;
+    width: 100% !important;
+    background-color: #007bff !important; /* Primary button color */
+    color: #fff !important; /* White text */
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    transition: background-color 0.3s !important; /* Smooth transition */
 }
 
 .btn-small:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3 !important; /* Darker blue on hover */
 }
 
 /* End Login */
 
 /* Footer */
-.footer{
-    margin-top: 2rem;
-    color: white;
-    background-color: var(--color-blue);
+.footer {
+    margin-top: 2rem !important;
+    color: white !important;
+    background-color: var(--color-blue) !important;
 }
-.footer .container{
-    padding-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.footer .container .content{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 3.5rem;
-}
-.footer .container .content .content-item .header{
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-.footer .container .content .content-item .header img{
-    height: 40px;
-    width: 40px;
-    object-fit: cover;
-    margin-right: 1rem;
+.footer .container {
+    padding-top: 3rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
 }
 
-.footer .container .content .content-item .description{
-    max-width: 50rem;
-    font-size: 1.4rem;
+.footer .container .content {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 3.5rem !important;
+}
+.footer .container .content .content-item .header {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 2rem !important;
+}
+.footer .container .content .content-item .header img {
+    height: 40px !important;
+    width: 40px !important;
+    object-fit: cover !important;
+    margin-right: 1rem !important;
 }
 
-.footer .container .content .content-item .list-item{
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.footer .container .content .content-item .description {
+    max-width: 50rem !important;
+    font-size: 1.4rem !important;
 }
 
-.footer .container .content .content-item .list-item li{
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    font-weight: 550;
+.footer .container .content .content-item .list-item {
+    margin-top: 3rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
 }
 
-.footer .container .content .content-item .list-item .icon{
-    font-size: 2.5rem;
+.footer .container .content .content-item .list-item li {
+    font-size: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    font-weight: 550 !important;
 }
 
-.footer .container .content .content-item .list-item li i{
-    margin-right: 1.5rem;
+.footer .container .content .content-item .list-item .icon {
+    font-size: 2.5rem !important;
 }
 
-.footer .container .content .content-item .header h5{
-    font-weight: 600;
+.footer .container .content .content-item .list-item li i {
+    margin-right: 1.5rem !important;
 }
 
-.footer .container .hr{
-    border-bottom: 1px solid var(--color-white);
-    margin: 3.5rem 0rem;
+.footer .container .content .content-item .header h5 {
+    font-weight: 600 !important;
 }
 
-.footer .container .footer-bottom{
-    padding: 10px 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    bottom: 1rem;
-    ;
+.footer .container .hr {
+    border-bottom: 1px solid var(--color-white) !important;
+    margin: 3.5rem 0rem !important;
 }
 
-.footer .container .footer-bottom .left p{
-    font-size: 2.0rem;
+.footer .container .footer-bottom {
+    padding: 10px 0px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    bottom: 1rem !important;
 }
 
-.footer .container .footer-bottom .right{
-    display: flex;
-    align-items: center;
+.footer .container .footer-bottom .left p {
+    font-size: 2.0rem !important;
 }
 
-.footer .container .footer-bottom .right i{
-    margin-left: 1.2rem;
-    font-size: 1.2rem;
+.footer .container .footer-bottom .right {
+    display: flex !important;
+    align-items: center !important;
 }
 
-.footer .container .footer-bottom .right a{
-    color: white;
-    font-size: 1.2rem;
-    margin-left: 1.2rem;
+.footer .container .footer-bottom .right i {
+    margin-left: 1.2rem !important;
+    font-size: 1.2rem !important;
+}
+
+.footer .container .footer-bottom .right a {
+    color: white !important;
+    font-size: 1.2rem !important;
+    margin-left: 1.2rem !important;
 }
 /* End Footer */
+
 
 /* Doctors */
 .name {
@@ -648,7 +649,7 @@ strong {
 }
 
 .first-content .right-content div p {
-   
+
     font-size: 30px;
     font-weight: bold;
     word-spacing: 6px;
