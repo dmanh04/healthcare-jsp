@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="<c:url value="/webapp/assets/css/reset.css"/>">
         <link rel="stylesheet" href="<c:url value="/webapp/assets/css/base.css"/>">
         <link rel="stylesheet" href="<c:url value="/webapp/assets/css/style_admin.css"/>">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -17,6 +18,58 @@
             referrerpolicy="no-referrer"
             />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script>
+            function completeAppointment(recordId, appointmentId, recipientUserId) {
+                const diagnosis = document.getElementById('diagnosis' + appointmentId).value;
+                const treatment = document.getElementById('treatment' + appointmentId).value;
+                fetch('/Healthcare/api/record/action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        recordId: recordId,
+                        appointmentId: appointmentId,
+                        recipientUserId: recipientUserId,
+                        diagnosis: diagnosis,
+                        treatment: treatment
+                    })
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert('Appointment rejected successfully! success');
+                            location.reload();
+                        })
+                        .catch(error => console.error('Error:', error));
+            }
+
+            function callApiAndShowModel(appointmentId) {
+                const apiUrl = "/Healthcare/api/record/action?appointmentId=" + appointmentId;
+
+                $.ajax({
+                    url: apiUrl,
+                    method: 'GET',
+                    success: function (medicalRecord) {
+                        $('#modalTitle').text("Medical Record for Appointment ID: " + appointmentId);
+                        $('#modalContent').html(
+                                "<p>Diagnosis: " + medicalRecord.diagnosis + "</p>" +
+                                "<p>Treatment: " + medicalRecord.treatment + "</p>"
+                                );
+                        $('#medicalRecordModal').modal('show');
+                    },
+                    error: function () {
+                        alert('Medical record not found');
+                    }
+                });
+            }
+
+            document.getElementById('medicalRecordModal').addEventListener('hidden.bs.modal', function () {
+                if (medicalRecordModal) {
+                    medicalRecordModal.hide();
+                }
+            });
+
+        </script>
     </head>
     <body>
 
@@ -310,17 +363,91 @@
                                                     <i class="fa-solid fa-xmark" style="font-size: 15px; color: white; margin-left: 0;"></i>
                                                 </button>
                                             </c:when>
-                                        </c:choose>
 
-                                        <c:choose>
-                                            <c:when test="${appointment.status != 'PENDING'}">
-                                                <button type="button" class="btn btn-danger" onclick="">
-                                                    <i class="fa-solid fa-trash fs-18" style="color: white"></i>
+                                            <c:when test="${appointment.status == 'COMPLETED'}">
+                                                <button id="detailAppointment${appointment.id}" type="button" 
+                                                        title="History appointment" 
+                                                        onclick="callApiAndShowModel(${appointment.id})"
+                                                        class="btn" style="border: 0; background-color: white;">
+                                                    <i class="fa-solid fa-file-medical"  style="font-size: 15px; color: #E1C9B0; margin-left: 0;"></i>
                                                 </button>
                                             </c:when>
                                         </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${appointment.status == 'CONFIRMED'}">
+
+                                                <button id="recordAppointment" title="Record appointment"
+                                                        data-bs-toggle="modal" data-bs-target="#confirmModal${appointment.id}"
+                                                        type="button" class="btn" style="border: 0; background-color: white;">
+                                                    <i class="fa-solid fa-pen-to-square" style="font-size: 15px; color: black; margin-left: 0;
+                                                       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"></i>
+                                                </button> 
+
+                                                <button id="cancellerAppointment" title="Cancel appointment"
+                                                        onclick="rejectAppointment(${appointment.id}, ${appointment.customer.id})"  
+                                                        type="button" class="btn" style="border: 0; background-color: red;">
+                                                    <i class="fa-solid fa-ban" style="font-size: 15px; color: white; margin-left: 0;"></i>
+                                                </button>
+                                            </c:when>
+                                        </c:choose>
+
                                     </c:if>
 
+                                    <div class="modal fade" id="confirmModal${appointment.id}" tabindex="-1" aria-labelledby="confirmModal${appointment.id}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editUserModalLabel${appointment.id}">Completed Appointment</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="appointmentForm${appointment.id}">
+                                                        <span id="errorMessage${appointment.id}"
+                                                              style="color: red; font-weight: bold; display: block; margin-bottom: 15px;"></span>
+
+                                                        <input type="hidden" name="appointmentId" value="${appointment.id}">
+                                                        <input type="hidden" name="customerId" value="${appointment.customer.id}">
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Customer name</label>
+                                                            <input type="text" class="form-control" name="customerName" value="${appointment.customerName}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Phone</label>
+                                                            <input type="text" class="form-control" name="phone" value="${appointment.phone}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Date</label>
+                                                            <input type="text" class="form-control" name="date" value="${appointment.date}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Time Slot</label>
+                                                            <input type="text" class="form-control" name="timeSlot" value="${appointment.timeSlot.time}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Status</label>
+                                                            <c:if test="${appointment.status == 'CONFIRMED'}">
+                                                                <input value="${appointment.status}"  class="form-control" style=" background-color: #d4edda;
+                                                                       color: #155724;
+                                                                       font-weight: bold;"></input>
+                                                            </c:if>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Diagnosis</label>
+                                                            <textarea id="diagnosis${appointment.id}" name="diagnosis" class="form-control"></textarea>
+                                                        </div>   
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Treatment</label>
+                                                            <textarea name="treatment" id="treatment${appointment.id}" class="form-control" style="min-height: 50px;"></textarea>
+                                                        </div>   
+                                                        <button onclick="completeAppointment(null, ${appointment.id}, ${appointment.customer.id})" 
+                                                                class="btn btn-primary" type="button">Complete Appointment</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </td>
                             </tr>
@@ -386,8 +513,30 @@
         <%@include file="../../common/admin/footer.jsp" %>
         <!--Footer-->
 
+        <!-- Modal -->
+        <div class="modal fade" id="medicalRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Medical Record</h5>
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>-->
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Changed id of the Close button to avoid conflict -->
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <script>
+
+
             async function acceptAppointment(appointmentId, userId) {
                 try {
                     const response = await fetch(`/Healthcare/api/appointment/action?appointmentId=` + appointmentId + `&userId=` + userId, {
@@ -430,7 +579,6 @@
                 }
             }
         </script>
-
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
     </body>

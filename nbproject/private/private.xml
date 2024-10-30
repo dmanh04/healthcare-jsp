@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/java/api/MedicalRecordApiController.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>80</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/controller/admin/service/AdminServiceController.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/views/web/manage-appointment.jsp</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/src/java/controller/admin/service/AdminEditServiceController.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/Healthcare/web/webapp/views/admin/appointment.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Admin
- */
+
 public class DBContext {
 
     protected Connection connection;
