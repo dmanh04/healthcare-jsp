@@ -28,10 +28,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         int medicineId = Integer.parseInt(medicineId_raw);
         dao.deleteMedicine(medicineId);
         response.sendRedirect("/Healthcare/admin/medicine"); 
-//
-//        List<Medicines> list = dao.getAllMedicine();
-//        request.setAttribute("listMedicine", list);
-//        request.getRequestDispatcher("/webapp/views/admin/medicine.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace();
     }
