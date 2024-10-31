@@ -11,83 +11,101 @@ import java.util.Date;
  * @author Admin
  */
 public class Medicines {
+
     private int id;
     private String medicineName;
     private String description;
     private int quantityInStock;
     private double price;
     private Date createdAt;
-    private Date updateddAt;
+    private Date updatedAt;
 
-    public Medicines() {
-    }
-
-    public Medicines(int id, String medicineName, String description, int quantityInStock, double price, Date createdAt, Date updateddAt) {
-        this.id = id;
-        this.medicineName = medicineName;
-        this.description = description;
-        this.quantityInStock = quantityInStock;
-        this.price = price;
-        this.createdAt = createdAt;
-        this.updateddAt = updateddAt;
+    private Medicines(Builder builder) {
+        this.id = builder.id;
+        this.medicineName = builder.medicineName;
+        this.description = builder.description;
+        this.quantityInStock = builder.quantityInStock;
+        this.price = builder.price;
+        this.createdAt = builder.createdAt;
+        this.updatedAt = builder.updatedAt;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getMedicineName() {
         return medicineName;
-    }
-
-    public void setMedicineName(String medicineName) {
-        this.medicineName = medicineName;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getQuantityInStock() {
         return quantityInStock;
-    }
-
-    public void setQuantityInStock(int quantityInStock) {
-        this.quantityInStock = quantityInStock;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public Date getUpdateddAt() {
-        return updateddAt;
+    public static class Builder {
+
+        private int id;
+        private String medicineName;
+        private String description;
+        private int quantityInStock;
+        private double price;
+        private Date createdAt;
+        private Date updatedAt;
+
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder medicineName(String medicineName) {
+            this.medicineName = medicineName;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder quantityInStock(int quantityInStock) {
+            this.quantityInStock = quantityInStock;
+            return this;
+        }
+
+        public Builder price(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder createdAt(Date createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder updatedAt(Date updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        public Medicines build() {
+            return new Medicines(this);
+        }
     }
 
-    public void setUpdateddAt(Date updateddAt) {
-        this.updateddAt = updateddAt;
-    }
-    
-    
-    
 }

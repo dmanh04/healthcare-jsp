@@ -8,7 +8,7 @@
     <a href="<c:url value='/admin/appointment'/>">
         <i class="fa-solid fa-users"></i> Quản lí lịch hẹn
     </a>
-    <a href="#">
+    <a href="<c:url value='/admin/medicine'/>">
         <i class="fa-solid fa-pills"></i> Quản lí thuốc
     </a>
     <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
