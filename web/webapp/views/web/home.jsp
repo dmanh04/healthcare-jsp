@@ -23,6 +23,71 @@
                 margin-left: auto !important;
                 margin-right: auto !important;
             }
+            /* Doctor section */
+            .team-section {
+                text-align: start;
+                padding: 50px 0px;
+            }
+
+            .team-section .container{
+                display: block;
+            }
+
+
+            .team-section h3 {
+                margin-bottom: 20px;
+                font-weight: 700;
+            }
+
+            .team-section p {
+                margin-bottom: 40px;
+                color: #666;
+            }
+
+            .doctor-grid {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .doctor-card {
+                background-color: #fff;
+                overflow: hidden;
+                width: 250px;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .doctor-card img {
+                display: block;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .doctor-card h3 {
+                background: linear-gradient(to bottom, #E6C075, #CF9A4C);
+                color: #fff;
+                padding: 20px;
+                font-size: 1.5em;
+            }
+
+            .details-link {
+                margin-top: 30px;
+            }
+
+            .details-link a {
+                color: #007bff;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 1.8rem;
+            }
+
+            .details-link a:hover {
+                text-decoration: underline;
+            }
+
+            /* End Doctor section */
         </style>
         <!--Header-->
         <%@include file="../../common/web/header.jsp" %>
@@ -35,7 +100,7 @@
             <div class="container">
                 <div class="services-header">
                     <h3>Dịch vụ từ tâm cho trải nghiệm xứng tầm</h3>
-                    <a href="#"
+                    <a href="<c:url value='/services'/>"
                        >Xem thêm dịch vụ <i class="fa-solid fa-arrow-right-long"></i
                         ></a>
                 </div>
@@ -90,11 +155,12 @@
             </div>
         </div>
 
+
+
         <section class="team-section">
             <div class="container">
                 <h3>Đội ngũ bác sĩ</h3>
                 <p>An tâm đồng hành cùng đội ngũ bác sĩ chuyên môn cao và nhiều năm kinh nghiệm.</p>
-
                 <div class="doctor-grid">
                     <c:forEach items="${requestScope.data}" var="d">
                         <div class="doctor-card">
@@ -104,12 +170,17 @@
                             </a>
                         </div>
                     </c:forEach>
-                    <div class="details-link">
-                        <a href="<c:url value='/doctors'/>">Xem chi tiết</a>
-                    </div>
+                </div>
+                <div class="details-link">
+                    <a href="<c:url value='/doctors'/>">Xem chi tiết <i class="fa-solid fa-arrow-right-long"></i
+                        ></a>
                 </div>
             </div>
-        </section>            
+        </section>     
+
+
+
+
 
         <!--Footer-->
         <%@include file="../../common/web/footer.jsp" %>

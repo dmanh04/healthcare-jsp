@@ -76,10 +76,6 @@
                 margin-bottom: 15px;
             }
 
-            .content {
-                padding: 20px;
-            }
-
             .status-confirmed {
                 background-color: #d4edda;
                 color: #155724;

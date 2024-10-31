@@ -65,6 +65,11 @@ public class AuthenticateController extends HttpServlet {
         }
         User userCurrent = userDAO.findByUsername(username);
         System.out.println("User found: " + userCurrent);
+        if (userCurrent == null) {
+            request.setAttribute("errorMessage", "Invalid username or password");
+            request.getRequestDispatcher("webapp/common/login.jsp").forward(request, response);
+            return;
+        }
         String hashPassword = PasswordUtils.hashPassword(password);
         if (!hashPassword.equals(userCurrent.getPassword())) {
             request.setAttribute("errorMessage", "Invalid username or password");

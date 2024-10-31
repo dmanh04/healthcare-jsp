@@ -29,8 +29,6 @@ public class DoctorController extends HttpServlet {
         this.doctorDAO = new DoctorDAOImpl();
     }
     
-    
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,8 +50,7 @@ public class DoctorController extends HttpServlet {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Doctor ID format");
             }
         } else {
-            DoctorDAOImpl DAO = new DoctorDAOImpl();
-            List<User> list = DAO.findAllDoctor();
+            List<User> list = this.doctorDAO.findAllDoctorByIsActive(1);
             request.setAttribute("data", list);
             request.getRequestDispatcher("/webapp/views/web/list-doctors.jsp").forward(request, response);
         }

@@ -59,7 +59,7 @@ public class AppointmentController extends HttpServlet {
         String dateString = request.getParameter("date");
         String doctorIdString = request.getParameter("doctorId");
         Map<Integer, Services> mapService = this.serivceDAO.getIdAndService();
-        List<User> listDoctor = this.doctorDAO.findAllDoctor();
+        List<User> listDoctor = this.doctorDAO.findAllDoctorByIsActive(1);
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         if (dateString != null && !dateString.isEmpty()) {
