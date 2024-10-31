@@ -4,9 +4,11 @@
  */
 package mapper.impl;
 
+import dao.IDoctorDAO;
 import dao.ISerivceDAO;
 import dao.ITimeSlotDAO;
 import dao.IUserDAO;
+import dao.impl.DoctorDAOImpl;
 import dao.impl.ServiceDAOImpl;
 import dao.impl.TimeSlotDAOImpl;
 import dao.impl.UserDAOImpl;
@@ -29,11 +31,13 @@ public class AppointmentMapperImpl implements IAppointmentMapper {
     private final IUserDAO userDAO;
     private final ITimeSlotDAO timeSlotDAO;
     private final ISerivceDAO serivceDAO;
+    private final IDoctorDAO doctorDAO;
 
     public AppointmentMapperImpl() {
         this.userDAO = new UserDAOImpl();
         this.timeSlotDAO = new TimeSlotDAOImpl();
         this.serivceDAO = new ServiceDAOImpl();
+        this.doctorDAO = new DoctorDAOImpl();
     }
 
     @Override
@@ -41,7 +45,7 @@ public class AppointmentMapperImpl implements IAppointmentMapper {
         List<AppointmentResponse> res = new ArrayList<>();
         for (Appointments appointments : listAppointment) {
             User cusUser = this.userDAO.findById(appointments.getCustomerId());
-            User doctor = this.userDAO.findById(appointments.getDoctorId());
+            User doctor = this.doctorDAO.findDoctorByIdNotNeedActive(appointments.getDoctorId());
             Services services = this.serivceDAO.findServiceById(appointments.getServiceId());
             TimeSlot timeSlot = this.timeSlotDAO.getTimeSlotById(appointments.getTimeSlotId());
             res.add(new AppointmentResponse.Builder()

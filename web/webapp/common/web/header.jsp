@@ -87,7 +87,7 @@
                             </li>
                             <li>
                                 <div class="dropdown">
-                                    <button id="notification-bell" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button id="notification-bell" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="badge bg-danger" id="notification-count">0</span>
                                         <i class="fa fa-bell" style="font-size: 1.5rem;"></i>
                                     </button>
@@ -146,7 +146,7 @@
             };
 
             document.addEventListener("DOMContentLoaded", function () {
-                setInterval(fetchNotifications, 30000);
+                setInterval(fetchNotifications, 10000);
                 fetchNotifications();
                 document.getElementById("notification-bell").addEventListener("click", markNotificationsAsRead);
 

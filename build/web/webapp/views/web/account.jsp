@@ -61,7 +61,7 @@
                                 <input type="text" class="form-control" id="lastName${user.id}" name="lastName" value="${user.lastName}" required>
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-3" style="font-size: 17px !important">
                                 <label class="form-label">Gender*</label>
                                 <div class="d-flex align-items-center">
                                     <div class="form-check me-3">

@@ -125,8 +125,7 @@ public class AdminAppointmentController extends HttpServlet {
          System.out.println(pageable.getTotalPage());
         List<TimeSlot> listTimeSlot = this.timeSlotDAO.getAllTimeSlot();
         List<Services> listService = this.serivceDAO.getAllSerivce();
-        List<User> listDoctor = this.doctorDAO.findAllDoctor();
-        
+        List<User> listDoctor = this.doctorDAO.findAllDoctorByIsActive(1);
         request.setAttribute("pageable", pageable);
         request.setAttribute("listTimeSlot", listTimeSlot);
         request.setAttribute("listService", listService);

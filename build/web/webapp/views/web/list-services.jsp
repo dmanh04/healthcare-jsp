@@ -190,9 +190,6 @@
                 color: #0056b3;
                 font-weight: 500;
             }
-
-
-
             .first-content .right-content h3+p {
                 font-size: 16px;
                 font-style: italic;
@@ -397,8 +394,6 @@
 
 
         </div>
-
-
         <!--Footer-->
         <%@include file="../../common/web/footer.jsp" %>
         <!--Footer-->

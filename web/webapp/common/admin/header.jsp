@@ -69,7 +69,7 @@
             </div>
             <c:if test="${sessionScope.ROLE_CURRENT == 'DOCTOR'}">
                 <div class="dropdown">
-                    <button id="notification-bell" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button id="notification-bell" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="badge bg-danger" id="notification-count">0</span>
                         <i class="fa fa-bell" style="font-size: 1.5rem;"></i>
                     </button>

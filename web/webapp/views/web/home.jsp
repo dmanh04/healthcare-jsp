@@ -61,13 +61,8 @@
 
             .doctor-card img {
                 display: block;
-                height: 263px;
-                width: 311px;
+                width: 100%;
                 object-fit: cover;
-                /*                margin: 0;
-                                background: none;
-                                padding: 0;
-                                border: none;*/
             }
 
             .doctor-card h3 {

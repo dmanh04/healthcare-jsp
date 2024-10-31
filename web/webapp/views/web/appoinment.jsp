@@ -60,6 +60,7 @@
                 padding: 5px;
                 border-radius: 4px;
             }
+
         </style>
         <!--Header-->
         <%@include file="../../common/web/header.jsp" %>
@@ -67,7 +68,7 @@
         <p class="b">Trang chủ >> Đặt lịch khám</p>
         <h1>Ưu đãi mới nhất</h1>       
         <img src="webapp/assets/images/banner.jpg" alt="Ưu đãi">
-        <div class="c">
+        <div class="c" style="font-size: 13px !important;">
             <h1>Đặt lịch ngay!</h1>
             <form action="<c:url value='/appointment'/>" method="post" onsubmit="return validateForm()">
                 <div class="fr">
@@ -78,7 +79,7 @@
                     <div class="fg">
                         <label for="phone">Số điện thoại *</label>
                         <input type="text" id="phone" name="phone" placeholder="Số điện thoại" required>
-                        <small id="phoneError" style="color: red; display: none;">Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam.</small>
+                        <small id="phoneError" style="color: red; font-size: 13px; font-weight: bold; display: none; padding: 10px 0px;">Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam.</small>
                     </div>
                 </div>
 
@@ -96,6 +97,7 @@
                         </select>
                     </div>
                 </div>
+                <small id="timeSlotError" style="color: red; font-size: 13px; font-weight: bold; display: none; padding: 10px 0px;">Vui lòng chọn giờ để đặt lịch hẹn.</small>
                 <div class="ts" id="ts"> 
                     <input type="hidden" id="timeSlotId" name="timeSlotId">
                     <c:forEach items="${timeSlots}" var="slot">
@@ -192,7 +194,14 @@
             function validateForm() {
                 const phoneInput = document.getElementById('phone');
                 const phoneError = document.getElementById('phoneError');
+                const timeSlotId = document.getElementById('timeSlotId');
+                const timeSlotError = document.getElementById('timeSlotError');
 
+
+                if (timeSlotId.value === null || timeSlotId.value === '') {
+                    timeSlotError.style.display = 'block';
+                    return false;
+                }
                 if (!validatePhoneNumber(phoneInput.value)) {
                     phoneError.style.display = 'block';
                     return false;
@@ -200,6 +209,7 @@
                     phoneError.style.display = 'none';
                     return true;
                 }
+                return true;
             }
 
             function selectTimeSlot(button, slotId) {
@@ -241,7 +251,7 @@
                 button.style.backgroundColor = 'blue';
             }
         </script>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </body>

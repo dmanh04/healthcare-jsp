@@ -13,9 +13,14 @@ import models.User;
  */
 public interface IDoctorDAO {
     
-    List<User> findAllDoctor();
+    List<User> findAllDoctorByIsActive(int isActive);
     
     User findDoctorById(int id);
     
     List<User> selectFourDoctors();
+    
+    List<User> findAllDoctor();
+    
+     User findDoctorByIdNotNeedActive(int id);
+    
 }
