@@ -17,16 +17,25 @@
             />
     </head>
     <body>
-        <style>
-            .container {
-                max-width: 1140px !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-        </style>
         <!--Header-->
         <%@include file="../../common/web/header.jsp" %>
         <!--End Header-->
+
+        <!-- Breadcrumb -->
+
+        <!-- Nội dung chính -->
+        <div class="body-container">
+            <div class="group">
+                <div class="breadcrumb"> Trang chủ » Đội ngũ bác sĩ </div>
+                <div class="title">Đội ngũ bác sĩ</div>
+                <div class="subtitle">Trang bao gồm tất cả các bác sĩ và trợ tá tại Nha khoa Thúy Đức</div></div>
+
+            <div class="team">
+                <div >
+                    <img src="https://nhakhoathuyduc.com.vn/wp-content/uploads/2024/04/banner.png" alt="Bác sĩ và trợ tá">               
+                </div>           
+            </div>
+        </div>
 
         <!--Main-->
 
@@ -40,17 +49,17 @@
                     <div class="content">
                         <p>Thành viên của các tổ chức</p>
                         <ul>
-                            <li><strong> Hiệp hội chỉnh nha Hoa Kì</strong></li>
-                            <li><strong> Hiệp hội nắn chỉnh răng thế giới</strong></li>
-                            <li><strong> Hiệp hội chỉnh nha thế giới</strong></li>
+                            <li><strong> Hiệp hội Chỉnh nha Hoa Kì AAO</strong></li>
+                            <li><strong> Hiệp hội Nắn chỉnh răng thế giới IAO</strong></li>
+                            <li><strong> Hiệp hội Chỉnh nha thế giới WFO</strong></li>
                         </ul> 
                     </div >
                     <table>
                         <tr>
                             <td><p>Chuyên môn chính :</p><br>
-                                <strong>Chỉnh nha</strong><br><br><br><br><br>
+                                <strong>Chỉnh nha</strong><br>
                                 <p>Chức danh:</p><br>
-                                <strong>Bác sĩ nha khoa</strong><br>
+                                <strong>Giám đốc chuyên môn</strong><br><br><br><br><br><br>
                             </td>
                             <td><p>Kinh nghiệm</p><br>
                                 <strong>14 năm</strong>
@@ -64,53 +73,63 @@
                 <table>
                     <tr>
                         <td>
-                            <p> " Được biết đến không chỉ là một trong những chuyên gia hàng đầu trong lĩnh vực
-                                chỉnh nha tại Viet Nam, bác sĩ Phạm Hồng Đuc còn được mọi người yêu mến bởi
-                                sự gần gũi, tận tâm và tận tình."</p><br>
-                            <p> Bác sĩ Đuc được hang Invisalign đánh giá là bác sĩ TOP 1 Việt Nam và TOP 3
-                                Đông Nam Á về kinh nghiệm, chuyên môn.
-
-
-                                Bác sĩ duy nhất tại Việt Nam 2 nam liên tiếp đạt thứ hạng Black Diamond
-
-                                Bác sĩ đầu tiên tại Việt Nam có 2000+ ca niềng Invisalign thành công
-
-                                Bác sĩ Đuc đã có kinh nghiệm điều trị hơn 5000 ca chỉnh nha mắc cài
-
-                                Bác sĩ Đuc được coi là một trong nhung bác sĩ có số lượng khach hàng niềng
+                            <p> Được biết đến không chỉ là một trong những chuyên gia hàng đầu trong lĩnh vực
+                                chỉnh nha tại Việt Nam, bác sĩ Phạm Hồng Đuc còn được mọi người yêu mến bởi
+                                sự gần gũi, tận tâm và tận tình.</p><br><br>
+                            <p> &#10003; Bác sĩ Đức được hãng Invisalign đánh giá là bác sĩ TOP 1 Việt Nam và TOP 3
+                                Đông Nam Á về kinh nghiệm, chuyên môn.<br><br>
+                                &#10003; Bác sĩ duy nhất tại Việt Nam 2 năm liên tiếp đạt thứ hạng Black Diamond<br><br>
+                                &#10003; Bác sĩ đầu tiên tại Việt Nam có 2000+ ca niềng Invisalign thành công<br><br>
+                                &#10003; Bác sĩ Đức đã có kinh nghiệm điều trị hơn 5000 ca chỉnh nha mắc cài<br><br>
+                                &#10003; Bác sĩ Đức được coi là một trong nhưng bác sĩ có số lượng khách hàng niềng
                                 răng lớn nhất Hà Nội.</p>
                         </td>
                         <td>
-                            <strong>Các chứng chỉ đào tạo:</strong><br><br>
-                            <p>- Chứng chỉ đào tạo bác sĩ chỉnh nha do Sở y tế Hà Nội cấp</p><br>
-                            <p>-Chương trình TAD Module 2 Nieng răng tăng trưởng</p><br>
-                            <p>- Khoa học chỉnh nha chuyen sâu: Đào Tạo Chỉnh Nha Chuyen Nghiep "Immersion
-                                in Bioprogressive-Meaw"</p><br>
-                            <p>- Tham dự hội nghị khoa học & triển lãm nắn chỉnh răng lần 2: Hướng đến kết quả
-                                chỉnh nha thành công với tiếp cận đa chuyên khoa</p> 
-
+                            <p>&#10003; 1 trong 3 bác sĩ sử dụng hệ thống mắc cài tự động Damon thành công nhất Việt Nam</p><br><br>
+                            <p>&#10003; Bác sĩ có cá ca điều trị thành công được đăng trên GLOBAL INVISALIGN GALLERYM - trang 
+                                web trưng bày các ca điều trị niềng răng trong suốt Invisalign xuất sắc nhất toàn cầu</p><br><br>
+                            <p>&#10003; Dịch giả của những cuốn sách chỉnh nha nổi tiếng như 1001 bí kíp lâm sàng trong 
+                                chỉnh nha(2015), Các ca lâm sàng trong chỉnh nha(2015), Cơ sinh học trong chỉnh nha(2016),...</p><br><br>
+                            <p>&#10003; Là người đầu tiên đưa phương pháp Niềng không nhổ răng F.A.C.E từ nước ngoài về ứng dụng 
+                                tại Việt Nam, giúp hạn chế tối đa việc nhổ răng thậm chí không cần nhổ răng mà vẫn mang lại hiệu 
+                                quả điều trị cao nhất.</p><br><br>
+                            <a class="info" href="<c:url value='/doctors/${d.id}'/>">
+                                <span>Xem chi tiết &#8594;</span>                                 
+                            </a>
 
                         </td>
                     </tr>
                 </table>
 
-
             </div>
 
-            <a class="info" href="<c:url value='/doctors/${d.id}'/>">
-                <span>Xem thông tin chi tiết</span>&nbsp;&nbsp;
-                <i class="fa-solid fa-arrow-right fa-2x"></i>
-            </a> 
         </c:forEach>
 
+        <div class="consultation">
+            <section class="consultation_img">
 
+                <img src="https://nhakhoathuyduc.com.vn/wp-content/uploads/2023/11/bsduc.png">
+            </section>
+            <div class="consultation_content">
+                <h2>Đăng ký dịch vụ tư vấn miễn phí</h2>
+                <<h3>Vui lòng để lại thông tin của bạn tại đây, để chúng tôi có thể giúp bạn</h3>
+                <div class="consultation_from">
+                    <form action="">
+                        <div class="input-group"> 
+                            <input type="text" placeholder="Họ và tên">
+                            <input type="text" placeholder="Điện thoại">
+                        </div>
+                        <input type="text" placeholder="Dịch vụ cần tư vấn">
+                        <textarea placeholder="Ghi chú"></textarea>
+                        <button type="submit">Đăng ký ngay</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
         <!--Footer-->
         <%@include file="../../common/web/footer.jsp" %>
         <!--Footer-->
-        
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </body>
 </html>
