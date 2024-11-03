@@ -193,7 +193,11 @@
                         medicineId: medicineId,
                         recordId: recordId
                     };
-
+                    const maxQuantity = document.getElementById("quantityInput").max;
+                    if (quantityPrescribed > maxQuantity) {
+                        alert(`Số lượng không được vượt quá số lượng tối đa là ` + maxQuantity);
+                        return;
+                    }
                     try {
                         const response = await fetch("/Healthcare/api/prescriptions", {
                             method: "POST",
