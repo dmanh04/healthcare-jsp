@@ -34,7 +34,7 @@ public class AdminServiceController extends HttpServlet {
             return;
         } else {
             String currentRole = (String) session.getAttribute(SystemConstant.ROLE_CURRENT);
-            if (!currentRole.equals(SystemConstant.ROLE_ADMIN)) {
+            if (currentRole.equals(SystemConstant.ROLE_USER)) {
                 response.sendRedirect("/Healthcare/403");
                 return;
             } else {

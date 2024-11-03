@@ -371,12 +371,17 @@
                                                         class="btn" style="border: 0; background-color: white;">
                                                     <i class="fa-solid fa-file-medical"  style="font-size: 15px; color: #E1C9B0; margin-left: 0;"></i>
                                                 </button>
+
+                                                <button class="btn" style="border: 0; background-color: #1492E6;" 
+                                                       onclick="sendToPrescription('${appointment.id}')"
+                                                        type="button">
+                                                    <i class="fa-solid fa-prescription-bottle-medical" style="font-size: 15px; color: white; margin-left: 0;"></i>
+                                                </button>       
                                             </c:when>
                                         </c:choose>
 
                                         <c:choose>
                                             <c:when test="${appointment.status == 'CONFIRMED'}">
-
                                                 <button id="recordAppointment" title="Record appointment"
                                                         data-bs-toggle="modal" data-bs-target="#confirmModal${appointment.id}"
                                                         type="button" class="btn" style="border: 0; background-color: white;">
@@ -448,7 +453,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </td>
                             </tr>
                         </c:forEach>
@@ -519,9 +523,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitle">Medical Record</h5>
-                        <!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>-->
                     </div>
                     <div class="modal-body" id="modalContent">
                     </div>
@@ -536,6 +537,9 @@
 
         <script>
 
+           function sendToPrescription(appointmentId){
+               window.location.replace("/Healthcare/admin/prescription/"+ appointmentId);
+           }
 
             async function acceptAppointment(appointmentId, userId) {
                 try {

@@ -4,6 +4,7 @@ package controller.admin.appointment;
 import common.constants.SystemConstant;
 import dao.IAppointmentDAO;
 import dao.IDoctorDAO;
+import dao.IMedicineDAO;
 import dao.ISerivceDAO;
 import dao.impl.AppointmentDAOImpl;
 import dao.impl.DoctorDAOImpl;
@@ -30,7 +31,9 @@ import models.TimeSlot;
 import models.User;
 import dao.ITimeSlotDAO;
 import dao.IUserDAO;
+import dao.impl.MedicineDAOImpl;
 import dao.impl.UserDAOImpl;
+import models.Medicines;
 
 @WebServlet(name = "AdminAppointmentController", urlPatterns = {"/admin/appointment"})
 public class AdminAppointmentController extends HttpServlet {

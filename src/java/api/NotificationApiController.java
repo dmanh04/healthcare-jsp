@@ -48,19 +48,19 @@ public class NotificationApiController extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         out.flush();
     }
-    
-    @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    String currentUser = (String) session.getAttribute(SystemConstant.USER_CURRENT);
 
-    if (currentUser != null && !currentUser.isEmpty()) {
-        User userCurrent = userDAO.findByUsername(currentUser);
-        notificationDAO.markAllNotificationsAsRead(userCurrent.getId());
-    } else {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String currentUser = (String) session.getAttribute(SystemConstant.USER_CURRENT);
+
+        if (currentUser != null && !currentUser.isEmpty()) {
+            User userCurrent = userDAO.findByUsername(currentUser);
+            notificationDAO.markAllNotificationsAsRead(userCurrent.getId());
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
     }
-}
-    
+
 }

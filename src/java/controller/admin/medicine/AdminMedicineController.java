@@ -33,7 +33,7 @@ public class AdminMedicineController extends HttpServlet {
             return;
         } else {
             String currentRole = (String) session.getAttribute(SystemConstant.ROLE_CURRENT);
-            if (!currentRole.equals(SystemConstant.ROLE_ADMIN)) {
+            if (currentRole.equals(SystemConstant.ROLE_USER) || currentRole.equals(SystemConstant.ROLE_STAFF)) {
                 response.sendRedirect("/Healthcare/403");
                 return;
             } else {
