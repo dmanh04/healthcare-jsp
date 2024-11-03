@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.MedicalRecords;
 
 public class MedicalRecordDAOImpl extends DBContext implements IMedicalRecordDAO {
 
@@ -58,6 +59,49 @@ public class MedicalRecordDAOImpl extends DBContext implements IMedicalRecordDAO
             }
         } catch (SQLException e) {
             Logger.getLogger(MedicalRecordDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving medical record", e);
+        }
+        return null;
+    }
+
+    @Override
+    public MedicalRecords getMedicalRecord(int id) {
+        String sql = "SELECT record_id, appointment_id, diagnosis, treatment FROM medical_records WHERE record_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    MedicalRecords medicalRecord = new MedicalRecords.Builder()
+                            .id(rs.getInt("record_id"))
+                            .appointmentId(rs.getInt("appointment_id"))
+                            .diagnosis("diagnosis")
+                            .treatment("treatment")
+                            .build();
+                    return medicalRecord;
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MedicalRecordDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving medical record", e);
+        }
+        return null;
+    }
+
+    @Override
+    public MedicalRecords getMedicalRecordsByAppointmentId(int id) {
+        String sql = "SELECT record_id, appointment_id, diagnosis, treatment FROM medical_records WHERE appointment_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new MedicalRecords.Builder()
+                            .id(rs.getInt("record_id"))
+                            .appointmentId(rs.getInt("appointment_id"))
+                            .diagnosis(rs.getString("diagnosis"))
+                            .treatment(rs.getString("treatment"))
+                            .build();
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MedicalRecordDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving medical record by appointment ID", e);
         }
         return null;
     }

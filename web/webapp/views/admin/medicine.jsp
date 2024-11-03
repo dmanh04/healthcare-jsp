@@ -114,12 +114,13 @@
                     <input type="text" name="name" value="${param.name != null ? param.name : ''}">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
-                <div class="inner-btn">
 
-                    <a class="btn btn-primary" href="/Healthcare/webapp/views/admin/add-medicine.jsp">Add Medicine
-                    </a>
-
-                </div>
+                <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+                    <div class="inner-btn">
+                        <a class="btn btn-primary" href="/Healthcare/webapp/views/admin/add-medicine.jsp">Add Medicine
+                        </a>
+                    </div>
+                </c:if>   
             </div>
 
             <div class="container">
@@ -130,7 +131,9 @@
                             <th>Medicine Name</th>
                             <th>Price</th>
                             <th>Quantity</th>
-                            <th>Actions</th>
+                                <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+                                <th>Actions</th>
+                                </c:if>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,13 +145,15 @@
                                     <fmt:formatNumber value="${medicine.price}" type="currency" />
                                 </td>
                                 <td>${medicine.quantityInStock}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="<c:url value='/admin/detail/medicine?id=${medicine.id}'/>">Detail</a>
-                                    <a class="btn btn-warning" href="<c:url value='/admin/edit/medicine?id=${medicine.id}'/>">Edit</a>
-                                    <button onclick="handleDelete(${medicine.id})" class="btn btn-danger" >
-                                        Delete
-                                    </button>
-                                </td>
+                                <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+                                    <td>
+                                        <a class="btn btn-primary" href="<c:url value='/admin/detail/medicine?id=${medicine.id}'/>">Detail</a>
+                                        <a class="btn btn-warning" href="<c:url value='/admin/edit/medicine?id=${medicine.id}'/>">Edit</a>
+                                        <button onclick="handleDelete(${medicine.id})" class="btn btn-danger" >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -159,9 +164,5 @@
         <!--Footer-->
         <%@include file="../../common/admin/footer.jsp" %>
         <!--Footer-->
-
-
-
-
     </body>
 </html>

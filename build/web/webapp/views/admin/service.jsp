@@ -111,9 +111,11 @@
                     <input type="text" name="search" value="${param.search != null ? param.search : ''}">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
-                <div class="inner-btn">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
-                </div>
+                <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+                    <div class="inner-btn">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal">Add Service</button>
+                    </div>
+                </c:if>
             </div>
 
             <div class="container">
@@ -125,7 +127,9 @@
                             <th>Service Image</th>
                             <th>Price</th>
                             <th>Duration (min)</th>
-                            <th>Actions</th>
+                                <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+                                <th>Actions</th>
+                                </c:if>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,12 +144,14 @@
                                     <fmt:formatNumber value="${service.price}" type="currency" />
                                 </td>
                                 <td>${service.duration}</td>
-                                <td>
-                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editServiceModal${service.id}">Edit</button>
-                                    <button type="button" class="btn btn-danger" onclick="showDeleteModal(${service.id}, '${service.serviceName}')">
-                                        Delete
-                                    </button>
-                                </td>
+                                <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN'}">
+                                    <td>
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editServiceModal${service.id}">Edit</button>
+                                        <button type="button" class="btn btn-danger" onclick="showDeleteModal(${service.id}, '${service.serviceName}')">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </c:if>
                             </tr>
 
                         <div class="modal fade" id="editServiceModal${service.id}" tabindex="-1" aria-labelledby="editServiceModalLabel${service.id}" aria-hidden="true">

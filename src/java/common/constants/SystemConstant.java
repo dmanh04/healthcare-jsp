@@ -4,10 +4,7 @@
  */
 package common.constants;
 
-/**
- *
- * @author Admin
- */
+
 public final class SystemConstant {
 
     public static final String ROLE_USER = "USER";

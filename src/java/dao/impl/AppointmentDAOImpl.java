@@ -150,7 +150,7 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
         if (appointmentCriteria.getDoctorId() != null) {
             query.append("AND a.doctor_id = ? ");
         }
-        
+
         if (appointmentCriteria.getServiceId() != null) {
             query.append("AND a.service_id = ? ");
         }
@@ -177,9 +177,9 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
         } else if (appointmentCriteria.getEndDate() != null) {
             query.append("AND a.appointment_date <= ? ");
         }
-        
-        if(appointmentCriteria.getDoctorIdCurrent() != null){
-             query.append("AND a.doctor_id = ? ");
+
+        if (appointmentCriteria.getDoctorIdCurrent() != null) {
+            query.append("AND a.doctor_id = ? ");
         }
         return query.toString();
     }
@@ -215,9 +215,9 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
         } else if (appointmentCriteria.getEndDate() != null) {
             ps.setDate(index++, new java.sql.Date(appointmentCriteria.getEndDate().getTime()));
         }
-        
-        if(appointmentCriteria.getDoctorIdCurrent() != null){
-             ps.setInt(index++, appointmentCriteria.getDoctorIdCurrent());
+
+        if (appointmentCriteria.getDoctorIdCurrent() != null) {
+            ps.setInt(index++, appointmentCriteria.getDoctorIdCurrent());
         }
     }
 
@@ -251,6 +251,23 @@ public class AppointmentDAOImpl extends DBContext implements IAppointmentDAO {
                 .createdAt(rs.getTimestamp("created_at"))
                 .updatedAt(rs.getTimestamp("updated_at"))
                 .build();
+    }
+
+    @Override
+    public Appointments getAppointmentsById(int id) {
+        String query = "SELECT * FROM appointments WHERE appointment_id = ?";
+        Appointments appointment = null;
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    appointment = buildAppointment(rs);
+                }
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Error retrieving appointment by ID: {0}", ex.getMessage());
+        }
+        return appointment;
     }
 
 }

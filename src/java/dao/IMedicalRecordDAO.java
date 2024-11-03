@@ -6,11 +6,16 @@ package dao;
 
 import dto.request.MedicalRecordRequest;
 import dto.response.MedicalRecordResponse;
+import models.MedicalRecords;
 
 
 public interface IMedicalRecordDAO {
     
     MedicalRecordResponse getMedicalRecordResponse(int id);
+    
+    MedicalRecords getMedicalRecord(int id);
+    
+    MedicalRecords getMedicalRecordsByAppointmentId(int id);
     
     void addMedicalRecord(MedicalRecordRequest medicalRecordRequest);
     

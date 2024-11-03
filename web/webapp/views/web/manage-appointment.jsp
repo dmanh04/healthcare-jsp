@@ -9,8 +9,99 @@
         <link rel="stylesheet" href="<c:url value='webapp/assets/css/base.css'/>">
         <link rel="stylesheet" href="<c:url value='webapp/assets/css/style.css'/>">
         <link rel="stylesheet" href="<c:url value='webapp/assets/css/account.css'/>">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script>
+            function completeAppointment(recordId, appointmentId, recipientUserId) {
+                const diagnosis = document.getElementById('diagnosis' + appointmentId).value;
+                const treatment = document.getElementById('treatment' + appointmentId).value;
+                fetch('/Healthcare/api/record/action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        recordId: recordId,
+                        appointmentId: appointmentId,
+                        recipientUserId: recipientUserId,
+                        diagnosis: diagnosis,
+                        treatment: treatment
+                    })
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert('Appointment rejected successfully! success');
+                            location.reload();
+                        })
+                        .catch(error => console.error('Error:', error));
+            }
+            function callApiAndShowModel(appointmentId) {
+                const apiUrl = "/Healthcare/api/record/action?appointmentId=" + appointmentId;
+                $.ajax({
+                    url: apiUrl,
+                    method: 'GET',
+                    success: function (medicalRecord) {
+                        $('#modalTitle').text("Medical Record for Appointment ID: " + appointmentId);
+                        $('#modalContent').html(
+                                "<p>Diagnosis: " + medicalRecord.diagnosis + "</p>" +
+                                "<p>Treatment: " + medicalRecord.treatment + "</p>"
+                                );
+                        $('#medicalRecordModal').modal('show');
+                    },
+                    error: function () {
+                        alert('Medical record not found');
+                    }
+                });
+            }
+            document.getElementById('medicalRecordModal').addEventListener('hidden.bs.modal', function () {
+                if (medicalRecordModal) {
+                    medicalRecordModal.hide();
+                }
+            });
+            function prescriptions(appointmentId) {
+                fetch(`/Healthcare/api/prescriptions?appointmentId=` + appointmentId)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            showPrescriptionsModal(data);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching prescriptions:', error);
+                            alert('Có lỗi xảy ra khi lấy đơn thuốc.');
+                        });
+            }
+            function showPrescriptionsModal(prescriptions) {
+                const prescriptionsTableBody = document.querySelector('#prescriptionsTable tbody');
+                prescriptionsTableBody.innerHTML = '';
+                let totalPrice = 0;
+                prescriptions.forEach((prescription, index) => {
+                    const rowPrice = prescription.medicine.price * prescription.quantityPrescribed;
+                    totalPrice += rowPrice;
+                    const row = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + prescription.medicine.medicineName + '</td>' +
+                            '<td>' + prescription.quantityPrescribed + '</td>' +
+                            '<td>' + prescription.medicine.price + ' VND</td>' +
+                            '<td>' + prescription.notes + '</td>' +
+                            '<td>' + rowPrice + ' VND</td>' +
+                            '</tr>';
+                    prescriptionsTableBody.innerHTML += row;
+                });
+                const totalRow = '<tr>' +
+                        '<td colspan="5" style="text-align:right;"><strong>Tổng giá:</strong></td>' +
+                        '<td><strong>' + totalPrice + ' VND</strong></td>' +
+                        '</tr>';
+                prescriptionsTableBody.innerHTML += totalRow;
+
+                $('#prescriptionsModal').modal('show');
+            }
+
+        </script>
     </head>
     <body>
         <!--Header-->
@@ -197,6 +288,21 @@
                                                         onclick="setIdCancel(${appointment.id}, ${appointment.doctor.id})" 
                                                         data-bs-toggle="modal" data-bs-target="#confirmModal">Hủy lịch hẹn</button>
                                             </c:if>
+                                            <c:if test="${appointment.status == 'COMPLETED'}">
+                                                <button id="detailAppointment${appointment.id}" type="button" 
+                                                        title="History appointment" 
+                                                        onclick="callApiAndShowModel(${appointment.id})"
+                                                        class="btn" style="border: 0 !important; padding: 4px 10px !important; background-color: gray !important;">
+                                                    <i class="fa-solid fa-file-medical"  style="font-size: 15px; color: #E1C9B0; margin-left: 0;"></i>
+                                                </button>
+
+                                                <button id="showPrescriptions${appointment.id}" type="button" 
+                                                        title="Prescriptions appointment" 
+                                                        onclick="prescriptions(${appointment.id})"
+                                                        class="btn" style="border: 0 !important; padding: 4px 10px !important; background-color: #1492E6 !important;">
+                                                    <i class="fa-solid fa-prescription-bottle-medical" style="font-size: 15px; color: white; margin-left: 0;"></i>
+                                                </button>        
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -228,6 +334,56 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="medicalRecordModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Medical Record</h5>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Changed id of the Close button to avoid conflict -->
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="prescriptionsModal" tabindex="-1" role="dialog" aria-labelledby="prescriptionsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="prescriptionsModalLabel">Đơn thuốc</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered table-hover" id="prescriptionsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên thuốc</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Cách dùng</th>
+                                    <th>Tổng cộng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!--Footer-->
         <%@include file="../../common/web/footer.jsp" %>

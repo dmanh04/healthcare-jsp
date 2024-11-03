@@ -174,3 +174,31 @@ VALUES
 ('18:00'),
 ('18:30'),
 ('19:00');
+
+CREATE TABLE prescriptions (
+	prescription_id INT IDENTITY(1,1) NOT NULL,
+	medical_record_id INT NOT NULL,
+	medicine_id INT NOT NULL,
+	quantity_prescribed INT NOT NULL,
+	notes NVARCHAR(MAX) NULL,
+	created_at DATETIME DEFAULT GETDATE() NOT NULL,
+	updated_at DATETIME DEFAULT GETDATE() NULL,
+	CONSTRAINT PK_prescriptions PRIMARY KEY (prescription_id),
+	CONSTRAINT FK_prescriptions_medical_record FOREIGN KEY (medical_record_id) REFERENCES medical_records(record_id),
+	CONSTRAINT FK_prescriptions_medicine FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id)
+);
+
+-- Tạo bảng medicine_purchases để lưu trữ thông tin về các lần mua thuốc của khách hàng
+CREATE TABLE medicine_purchases (
+	purchase_id INT IDENTITY(1,1) NOT NULL,
+	customer_id INT NOT NULL,
+	prescription_id INT NULL, -- Liên kết tùy chọn đến đơn thuốc
+	medicine_id INT NOT NULL,
+	quantity_purchased INT NOT NULL,
+	total_price DECIMAL(10,2) NOT NULL,
+	purchase_date DATETIME DEFAULT GETDATE() NOT NULL,
+	CONSTRAINT PK_medicine_purchases PRIMARY KEY (purchase_id),
+	CONSTRAINT FK_medicine_purchases_customer FOREIGN KEY (customer_id) REFERENCES users(user_id),
+	CONSTRAINT FK_medicine_purchases_prescription FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
+	CONSTRAINT FK_medicine_purchases_medicine FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id)
+);
