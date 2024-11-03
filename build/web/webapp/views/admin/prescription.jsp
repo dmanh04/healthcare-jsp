@@ -74,7 +74,7 @@
                                                 class="btn btn-sm btn-primary" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#medicineMapperModal"
-                                                onclick="setMedicineId(${item.id}, '${item.medicineName}')"> 
+                                                onclick="setMedicineId(${item.id}, '${item.medicineName}', ${item.quantityInStock})"> 
                                                 <i class="fa-solid fa-plus" style="font-size: 15px; margin-left: 0;"></i>
                                             </button>
                                         </td>
@@ -135,6 +135,7 @@
                             <form id="medicineMapperForm">
                                 <div class="mb-3">
                                     <p id="medicineDisplayName" class="fw-bold"></p>
+                                    <p id="maxQuantityDisplay" class="text-muted"></p>
                                     <label for="quantityInput" class="form-label">Quantity</label>
                                     <input type="number" class="form-control" name="quantityPrescribed" id="quantityInput" required min="1" />
                                 </div>
@@ -153,6 +154,7 @@
                     </div>
                 </div>
             </div>
+
             <!--Footer-->
             <%@include file="../../common/admin/footer.jsp" %>
             <!--Footer-->
@@ -214,9 +216,15 @@
                         alert("An error occurred. Please try again later.");
                     }
                 });
-                function setMedicineId(id, name) {
+                function setMedicineId(id, name, maxQuantity) {
                     document.getElementById('medicineId').value = id;
                     document.getElementById('medicineDisplayName').textContent = `Medicine: ` + name;
+
+                    const quantityInput = document.getElementById('quantityInput');
+                    quantityInput.max = maxQuantity;
+                    quantityInput.value = "";
+                    const maxQuantityDisplay = document.getElementById('maxQuantityDisplay');
+                    maxQuantityDisplay.textContent = `Max Quantity Available: ` + maxQuantity;
                 }
             </script>
 
