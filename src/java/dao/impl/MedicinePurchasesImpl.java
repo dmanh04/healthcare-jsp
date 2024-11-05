@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import models.MedicinePurchases;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,5 +31,29 @@ public class MedicinePurchasesImpl extends DBContext implements IMedicinePurchas
         } catch (Exception e) {
             Logger.getLogger(MedicinePurchasesImpl.class.getName()).log(Level.SEVERE, "Error inserting medicine purchases", e);
         }
+    }
+
+    @Override
+    public List<String> getPurchasedMedicines(int recordId) {
+        List<String> purchasedMedicines = new ArrayList<>();
+        String sql = "SELECT m.medicine_name, mp.quantity_purchased "
+                + "FROM healthcare_final.dbo.medicine_purchases mp "
+                + "JOIN healthcare_final.dbo.prescriptions p ON mp.prescription_id = p.prescription_id "
+                + "JOIN healthcare_final.dbo.medicines m ON mp.medicine_id = m.medicine_id "
+                + "WHERE p.medical_record_id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, recordId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String medicineName = rs.getString("medicine_name");
+                    int quantity = rs.getInt("quantity_purchased");
+                    purchasedMedicines.add(medicineName + " " + quantity);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PrescriptionsDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving purchased medicines", ex);
+        }
+        return purchasedMedicines;
     }
 }

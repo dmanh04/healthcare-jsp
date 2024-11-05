@@ -18,6 +18,11 @@
             <i class="fa-solid fa-users-cog"></i> Quản lí người dùng
         </a>
     </c:if>
+         <c:if test="${sessionScope.ROLE_CURRENT == 'ADMIN' or sessionScope.ROLE_CURRENT == 'DOCTOR'}">
+        <a href="<c:url value='/admin/medical-purchase'/>">
+            <i class="fa-solid fa-notes-medical"></i> Hồ sơ bệnh án
+        </a>
+    </c:if> 
 
     <a href="<c:url value='/admin/service'/>">
         <i class="fa-solid fa-concierge-bell"></i> Quản lí dịch vụ

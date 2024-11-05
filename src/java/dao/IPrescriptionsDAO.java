@@ -17,4 +17,6 @@ public interface IPrescriptionsDAO {
     
     void removeByPrescriptionsId(int id);
     
+    List<String> getPrescribedMedicines(int recordId);
+    
 }
