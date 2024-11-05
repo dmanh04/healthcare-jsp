@@ -3,15 +3,13 @@ package models;
 public class MedicinePurchases {
 
     private int id;
-    private int customerId;
     private int prescriptionId;
     private int medicineId;
     private int quantityPurchased;
-    private int totalPrice;
+    private double totalPrice;
 
     private MedicinePurchases(Builder builder) {
         this.id = builder.id;
-        this.customerId = builder.customerId;
         this.prescriptionId = builder.prescriptionId;
         this.medicineId = builder.medicineId;
         this.quantityPurchased = builder.quantityPurchased;
@@ -21,19 +19,13 @@ public class MedicinePurchases {
     public static class Builder {
 
         private int id;
-        private int customerId;
         private int prescriptionId;
         private int medicineId;
         private int quantityPurchased;
-        private int totalPrice;
+        private double totalPrice; 
 
         public Builder id(int id) {
             this.id = id;
-            return this;
-        }
-
-        public Builder customerId(int customerId) {
-            this.customerId = customerId;
             return this;
         }
 
@@ -52,7 +44,7 @@ public class MedicinePurchases {
             return this;
         }
 
-        public Builder totalPrice(int totalPrice) {
+        public Builder totalPrice(double totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
@@ -60,5 +52,30 @@ public class MedicinePurchases {
         public MedicinePurchases build() {
             return new MedicinePurchases(this);
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public int getMedicineId() {
+        return medicineId;
+    }
+
+    public int getQuantityPurchased() {
+        return quantityPurchased;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicinePurchases{" + "id=" + id + ", prescriptionId=" + prescriptionId + ", medicineId=" + medicineId + ", quantityPurchased=" + quantityPurchased + ", totalPrice=" + totalPrice + '}';
     }
 }

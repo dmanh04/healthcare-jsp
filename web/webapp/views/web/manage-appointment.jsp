@@ -54,11 +54,7 @@
                     }
                 });
             }
-            document.getElementById('medicalRecordModal').addEventListener('hidden.bs.modal', function () {
-                if (medicalRecordModal) {
-                    medicalRecordModal.hide();
-                }
-            });
+
             function prescriptions(appointmentId) {
                 fetch(`/Healthcare/api/prescriptions?appointmentId=` + appointmentId)
                         .then(response => {
@@ -77,29 +73,106 @@
             }
             function showPrescriptionsModal(prescriptions) {
                 const prescriptionsTableBody = document.querySelector('#prescriptionsTable tbody');
+                const selectAllCheckbox = document.querySelector('#selectAllCheckbox');
+                const buyButton = document.querySelector('#buyButton');
                 prescriptionsTableBody.innerHTML = '';
                 let totalPrice = 0;
+
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.removeEventListener('change', toggleAllCheckboxes);
+                buyButton.removeEventListener('click', handleBuy);
+
                 prescriptions.forEach((prescription, index) => {
                     const rowPrice = prescription.medicine.price * prescription.quantityPrescribed;
                     totalPrice += rowPrice;
-                    const row = '<tr>' +
+
+                    const row =
+                            '<tr>' +
+                            '<td><input type="checkbox" class="prescription-checkbox" data-index="' + index + '"></td>' +
                             '<td>' + (index + 1) + '</td>' +
                             '<td>' + prescription.medicine.medicineName + '</td>' +
                             '<td>' + prescription.quantityPrescribed + '</td>' +
                             '<td>' + prescription.medicine.price + ' VND</td>' +
                             '<td>' + prescription.notes + '</td>' +
-                            '<td>' + rowPrice + ' VND</td>' +
+                            '<td class="row-price">' + rowPrice + ' VND</td>' +
                             '</tr>';
                     prescriptionsTableBody.innerHTML += row;
                 });
-                const totalRow = '<tr>' +
-                        '<td colspan="5" style="text-align:right;"><strong>Tổng giá:</strong></td>' +
-                        '<td><strong>' + totalPrice + ' VND</strong></td>' +
+
+                const totalRow =
+                        '<tr id="totalRow">' +
+                        '<td colspan="6" style="text-align:right;"><strong>Tổng giá:</strong></td>' +
+                        '<td><strong id="totalPriceDisplay">' + totalPrice + ' VND</strong></td>' +
                         '</tr>';
                 prescriptionsTableBody.innerHTML += totalRow;
 
                 $('#prescriptionsModal').modal('show');
+
+                function toggleAllCheckboxes() {
+                    const checkboxes = document.querySelectorAll('.prescription-checkbox');
+                    checkboxes.forEach(checkbox => checkbox.checked = selectAllCheckbox.checked);
+                    updateTotalPrice();
+                }
+
+                function updateTotalPrice() {
+                    let updatedTotalPrice = 0;
+                    document.querySelectorAll('.prescription-checkbox').forEach((checkbox, index) => {
+                        if (checkbox.checked) {
+                            const rowPrice = prescriptions[index].medicine.price * prescriptions[index].quantityPrescribed;
+                            updatedTotalPrice += rowPrice;
+                        }
+                    });
+                    document.getElementById('totalPriceDisplay').innerHTML = updatedTotalPrice + ' VND';
+                }
+
+                document.querySelectorAll('.prescription-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', updateTotalPrice);
+                });
+
+                selectAllCheckbox.addEventListener('change', toggleAllCheckboxes);
+
+                function handleBuy() {
+                    const selectedPrescriptions = [];
+                    document.querySelectorAll('.prescription-checkbox:checked').forEach(checkbox => {
+                        const index = parseInt(checkbox.getAttribute('data-index'), 10);
+                        selectedPrescriptions.push(prescriptions[index].id);
+                    });
+
+                    if (selectedPrescriptions.length > 0) {
+                        fetch('/Healthcare/api/medicine-purchases', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({listPrescriptionsId: selectedPrescriptions})
+                        })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok ' + response.statusText);
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    alert(data);
+                                    selectedPrescriptions.forEach(prescriptionId => {
+                                        const button = document.getElementById(`showPrescriptions${prescriptionId}`);
+                                        if (button) {
+                                            button.remove(); // Remove the button from the DOM
+                                        }
+                                    });
+
+                                    $('#prescriptionsModal').modal('hide');
+                                    window.location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    alert('Có lỗi xảy ra trong quá trình mua: ' + error.message); // Improved error alert
+                                });
+                    } else {
+                        alert('Vui lòng chọn ít nhất một đơn thuốc.');
+                    }
+                }
+                buyButton.addEventListener('click', handleBuy);
             }
+
 
         </script>
     </head>
@@ -345,8 +418,7 @@
                     <div class="modal-body" id="modalContent">
                     </div>
                     <div class="modal-footer">
-                        <!-- Changed id of the Close button to avoid conflict -->
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
@@ -365,6 +437,7 @@
                         <table class="table table-bordered table-hover" id="prescriptionsTable">
                             <thead class="table-light">
                                 <tr>
+                                    <th><input type="checkbox" id="selectAllCheckbox"></th> <!-- Select All Checkbox -->
                                     <th>#</th>
                                     <th>Tên thuốc</th>
                                     <th>Số lượng</th>
@@ -378,7 +451,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" id="buyButton" class="btn btn-primary">Mua</button>
+                        <button type="button" class="btn btn-danger" style="background-color: red !important;" data-dismiss="modal">Đóng</button>
                     </div>
                 </div>
             </div>
