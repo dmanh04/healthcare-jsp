@@ -13,6 +13,8 @@ public interface IPrescriptionsDAO {
     
     List<Prescriptions> getPrescriptionsByAppointmentId(int id);
     
+    List<Prescriptions> getPrescriptionsByIdIn(List<Integer> ids);
+    
     void removeByPrescriptionsId(int id);
     
 }

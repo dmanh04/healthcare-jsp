@@ -106,4 +106,44 @@ public class PrescriptionsDAOImpl extends DBContext implements IPrescriptionsDAO
         return prescriptionsList;
     }
 
+    @Override
+    public List<Prescriptions> getPrescriptionsByIdIn(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return new ArrayList<>();
+        }
+        String sql = "SELECT prescription_id, medical_record_id, medicine_id, quantity_prescribed, notes, created_at, updated_at "
+                + "FROM prescriptions WHERE prescription_id IN (";
+        StringBuilder placeholders = new StringBuilder();
+        for (int i = 0; i < ids.size(); i++) {
+            placeholders.append("?");
+            if (i < ids.size() - 1) {
+                placeholders.append(", ");
+            }
+        }
+        sql += placeholders.toString() + ")";
+        List<Prescriptions> prescriptionsList = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            for (int i = 0; i < ids.size(); i++) {
+                ps.setInt(i + 1, ids.get(i));
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Prescriptions prescription = new Prescriptions.Builder()
+                            .id(rs.getInt("prescription_id"))
+                            .recordId(rs.getInt("medical_record_id"))
+                            .medicineId(rs.getInt("medicine_id"))
+                            .quantityPrescribed(rs.getInt("quantity_prescribed"))
+                            .notes(rs.getString("notes"))
+                            .createdAt(rs.getTimestamp("created_at"))
+                            .updatedDate(rs.getTimestamp("updated_at"))
+                            .build();
+                    prescriptionsList.add(prescription);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrescriptionsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return prescriptionsList;
+    }
+
 }
