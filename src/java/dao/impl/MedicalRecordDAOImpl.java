@@ -2,16 +2,31 @@ package dao.impl;
 
 import common.utils.DBContext;
 import dao.IMedicalRecordDAO;
+import dao.IMedicinePurchases;
+import dao.IPrescriptionsDAO;
+import dto.criteria.MedicalRecordCriteria;
 import dto.request.MedicalRecordRequest;
+import dto.response.MedicalRecordHistoryResponse;
 import dto.response.MedicalRecordResponse;
+import dto.response.PageableResponse;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.MedicalRecords;
 
 public class MedicalRecordDAOImpl extends DBContext implements IMedicalRecordDAO {
+
+    private final IPrescriptionsDAO prescriptionsDAO;
+    private final IMedicinePurchases medicinePurchases;
+
+    public MedicalRecordDAOImpl() {
+        this.prescriptionsDAO = new PrescriptionsDAOImpl();
+        this.medicinePurchases = new MedicinePurchasesImpl();
+    }
 
     @Override
     public void addMedicalRecord(MedicalRecordRequest medicalRecordRequest) {
@@ -104,6 +119,113 @@ public class MedicalRecordDAOImpl extends DBContext implements IMedicalRecordDAO
             Logger.getLogger(MedicalRecordDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving medical record by appointment ID", e);
         }
         return null;
+    }
+
+    @Override
+    public PageableResponse<MedicalRecordHistoryResponse> getHistoryResponse(MedicalRecordCriteria medicalRecordCriteria) {
+        List<MedicalRecordHistoryResponse> responses = new ArrayList<>();
+        String sql = "SELECT mr.record_id, a.customer_name, mr.diagnosis, mr.treatment, "
+                + "a.appointment_date "
+                + "FROM medical_records mr "
+                + "JOIN appointments a ON mr.appointment_id = a.appointment_id "
+                + "WHERE 1=1";
+
+        if (medicalRecordCriteria.getCustomerName() != null) {
+            sql += " AND a.customer_name LIKE ?";
+        }
+        if (medicalRecordCriteria.getStartDate() != null) {
+            sql += " AND mr.created_at >= ?";
+        }
+        if (medicalRecordCriteria.getEndDate() != null) {
+            sql += " AND mr.created_at <= ?";
+        }
+        sql += " ORDER BY mr.record_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            int index = 1;
+
+            if (medicalRecordCriteria.getCustomerName() != null) {
+                ps.setString(index++, "%" + medicalRecordCriteria.getCustomerName() + "%");
+            }
+            if (medicalRecordCriteria.getStartDate() != null) {
+                ps.setDate(index++, new java.sql.Date(medicalRecordCriteria.getStartDate().getTime()));
+            }
+            if (medicalRecordCriteria.getEndDate() != null) {
+                ps.setDate(index++, new java.sql.Date(medicalRecordCriteria.getEndDate().getTime()));
+            }
+
+            ps.setInt(index++, (medicalRecordCriteria.getPage() - 1) * medicalRecordCriteria.getLimit());
+            ps.setInt(index++, medicalRecordCriteria.getLimit());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    MedicalRecordHistoryResponse response = new MedicalRecordHistoryResponse.Builder()
+                            .customerName(rs.getString("customer_name"))
+                            .medicalRecordId(rs.getInt("record_id"))
+                            .diagnosis(rs.getString("diagnosis"))
+                            .treatment(rs.getString("treatment"))
+                            .prescribedMedicines(this.prescriptionsDAO.getPrescribedMedicines(rs.getInt("record_id")))
+                            .purchasedMedicines(this.medicinePurchases.getPurchasedMedicines(rs.getInt("record_id")))
+                            .appointmentDate(rs.getDate("appointment_date"))
+                            .build();
+                    responses.add(response);
+                }
+            }
+
+            int totalCount = getTotalCount(medicalRecordCriteria);
+            int totalPage = (int) Math.ceil((double) totalCount / medicalRecordCriteria.getLimit());
+
+            return new PageableResponse.Builder<MedicalRecordHistoryResponse>()
+                    .page(medicalRecordCriteria.getPage())
+                    .size(responses.size())
+                    .data(responses)
+                    .totalPage(totalPage)
+                    .build();
+
+        } catch (SQLException e) {
+            Logger.getLogger(MedicalRecordDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving medical record history", e);
+        }
+
+        return null;
+    }
+
+    private int getTotalCount(MedicalRecordCriteria medicalRecordCriteria) {
+        String sql = "SELECT COUNT(*) FROM medical_records mr "
+                + "JOIN appointments a ON mr.appointment_id = a.appointment_id "
+                + "WHERE 1=1";
+
+        if (medicalRecordCriteria.getCustomerName() != null) {
+            sql += " AND a.customer_name LIKE ?";
+        }
+        if (medicalRecordCriteria.getStartDate() != null) {
+            sql += " AND mr.created_at >= ?";
+        }
+        if (medicalRecordCriteria.getEndDate() != null) {
+            sql += " AND mr.created_at <= ?";
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            int index = 1;
+
+            if (medicalRecordCriteria.getCustomerName() != null) {
+                ps.setString(index++, "%" + medicalRecordCriteria.getCustomerName() + "%");
+            }
+            if (medicalRecordCriteria.getStartDate() != null) {
+                ps.setDate(index++, new java.sql.Date(medicalRecordCriteria.getStartDate().getTime()));
+            }
+            if (medicalRecordCriteria.getEndDate() != null) {
+                ps.setDate(index++, new java.sql.Date(medicalRecordCriteria.getEndDate().getTime()));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MedicalRecordDAOImpl.class.getName()).log(Level.SEVERE, "Error counting medical records", e);
+        }
+        return 0;
     }
 
 }

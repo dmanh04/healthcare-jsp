@@ -146,4 +146,26 @@ public class PrescriptionsDAOImpl extends DBContext implements IPrescriptionsDAO
         return prescriptionsList;
     }
 
+    @Override
+    public List<String> getPrescribedMedicines(int recordId) {
+        List<String> prescribedMedicines = new ArrayList<>();
+        String sql = "SELECT m.medicine_name, p.quantity_prescribed "
+                + "FROM healthcare_final.dbo.prescriptions p "
+                + "JOIN healthcare_final.dbo.medicines m ON p.medicine_id = m.medicine_id "
+                + "WHERE p.medical_record_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, recordId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String medicineName = rs.getString("medicine_name");
+                    int quantity = rs.getInt("quantity_prescribed");
+                    prescribedMedicines.add(medicineName + " " + quantity);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrescriptionsDAOImpl.class.getName()).log(Level.SEVERE, "Error retrieving prescribed medicines", ex);
+        }
+        return prescribedMedicines;
+    }
+
 }

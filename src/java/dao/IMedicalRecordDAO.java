@@ -4,8 +4,12 @@
  */
 package dao;
 
+import dto.criteria.MedicalRecordCriteria;
 import dto.request.MedicalRecordRequest;
+import dto.response.MedicalRecordHistoryResponse;
 import dto.response.MedicalRecordResponse;
+import dto.response.PageableResponse;
+import java.util.List;
 import models.MedicalRecords;
 
 
@@ -20,4 +24,6 @@ public interface IMedicalRecordDAO {
     void addMedicalRecord(MedicalRecordRequest medicalRecordRequest);
     
     void updateMedicalRecord(MedicalRecordRequest medicalRecordRequest);
+    
+    PageableResponse<MedicalRecordHistoryResponse> getHistoryResponse(MedicalRecordCriteria medicalRecordCriteria);
 }

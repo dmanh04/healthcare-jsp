@@ -194,7 +194,7 @@
                         recordId: recordId
                     };
                     const maxQuantity = document.getElementById("quantityInput").max;
-                    if (quantityPrescribed > maxQuantity) {
+                    if (+quantityPrescribed > +maxQuantity) {
                         alert(`Số lượng không được vượt quá số lượng tối đa là ` + maxQuantity);
                         return;
                     }
